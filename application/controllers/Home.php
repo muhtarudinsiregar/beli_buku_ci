@@ -11,7 +11,7 @@ class Home extends CI_Controller {
     }
 
     function index() {
-        
+
     }
 // ------------------------------------------------------------------------
     /**
@@ -21,8 +21,8 @@ class Home extends CI_Controller {
     {
     	$this->form_validation->set_error_delimiters('<div class="alert alert-danger">','</div>');
     	$data = array(
-    			'main'=>'pendaftaran/daftar'
-    		);
+           'main'=>'pendaftaran/daftar'
+           );
 
     	$this->form_validation->set_rules('nama', 'Nama', 'trim|required|min_length[3]|xss_clean');
     	$this->form_validation->set_rules('email', 'Email', 'trim|required|min_length[5]|max_length[12]|xss_clean');
@@ -44,7 +44,7 @@ class Home extends CI_Controller {
     public function proses()
     {
 
-            $nama =$this->input->post('nama');
+        $nama =$this->input->post('nama');
         
 
         var_dump($nama);
@@ -56,6 +56,7 @@ class Home extends CI_Controller {
 
     public function cari()
     {
+        error_reporting(0);
         // if ($keyword=== null) {
         //     redirect('home/cari/'.$this->input->post('keyword'));
         // }
@@ -63,28 +64,64 @@ class Home extends CI_Controller {
 
         $keyword = $this->input->get('search');
 
-        if ($keyword == null) {
+        if (empty($keyword)) {
             // echo "data tidak ada";
             $data = array(
+                'query'=>$this->Home_model->tampil_all(),
                 'main'=>'pencarian/index'
-            );
+                );
             $this->load->view('template/home/index', $data);
         }
         else{
-            $data = array(
-            'query'=>$this->Home_model->pencarian(),
-            'main'=>'pencarian/index'
+            $query1 =$this->Home_model->pencarian($keyword); //query utk pencarian
+            // $data = array(
+            //  'title' => 'Title',
+            //  // 'content' => 'Sample Content'
+            //  );
 
-         );
-         $this->load->view('template/home/index', $data);    
+            // $content = $this->parser->parse('pencarian/test_parse',$data,TRUE);
+
+            // $data1['content'] = $content;
+
+            // $this->generate_view($data1['content']);
+
+            // $data untuk parse ke html lwt lib parser
+            $data_parse = array(
+                'query'=>$query1
+                );
+            // data_parse untuk digabung ke view
+            // $this->parser->parse('pencarian/test_parse',$data_parse);
+            $content=$this->parser->parse('pencarian/test_parse',$data_parse,TRUE);
+            // var_dump($content);
+            $data['content'] = $content;
+            // var_dump($data);
+            $this->generate_view($data['content']);
+
         }
         
         
 
+    }// end of function cari
+
+    public function generate_view($data='')
+    {
+        $header = $this->parser->parse('template/parser/header',array(),TRUE);
+        $footer = $this->parser->parse('template/parser/footer',array(),TRUE);
+        $content = $data;
+       
+        $data = [
+        'header'=>$header,
+        'content'=>$content,
+        'footer'=>$footer
+        ];
+        var_dump($data);
+        $this->parser->parse('pencarian/test_example_blog_post',$data);
     }
 
+
+
 }//main
-        
+
 
 /* End of file Home.php */
 /* Location: ./application/controllers/Home.php */
