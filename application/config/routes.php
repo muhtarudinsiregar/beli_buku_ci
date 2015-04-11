@@ -40,7 +40,7 @@
 
 $route['default_controller'] = "home";
 $route['404_override'] = '';
-// $route['home/cari/(:any)'] ='home/cari'; 
+$route['daftar'] ='home/pendaftaran'; 
 
 
 /* End of file routes.php */
