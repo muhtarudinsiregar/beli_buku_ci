@@ -14,13 +14,13 @@
 						<div class="col-lg-5">	
 							<div class="form-group">
 								<label for="nama">Judul Buku</label>
-								<input type="text" class="form-control" name="judul" placeholder="Judul Buku">
+								<input type="text" class="form-control" name="judul" placeholder="Judul Buku" value="<?php echo $data->judul; ?>">
 							</div>
 						</div>
 						<div class="col-lg-5 col-md-offset-1">	
 							<div class="form-group">
 								<label for="nama">Harga Buku</label>
-								<input type="text" class="form-control" name="harga" placeholder="Harga Buku">
+								<input type="text" class="form-control" name="harga" placeholder="Harga Buku" value="<?php echo $data->harga; ?>">
 							</div>
 						</div>
 					</div>
@@ -41,7 +41,7 @@
 							<div class="col-lg-5 col-lg-offset-1">
 								<div class="form-group">
 									<label for="nama">Tahun</label>
-									<input type="text" class="form-control" name="tahun" placeholder="Tahun">
+									<input type="text" class="form-control" name="tahun" placeholder="Tahun" value="<?php echo $data->tahun; ?>">
 								</div>
 							</div>
 						</div>
@@ -72,7 +72,7 @@
 								<div class="col-lg-5">
 									<div class="form-group">
 										<label for="nama">Deskripsi</label>
-										<textarea class="textarea form-control" name="deskripsi"></textarea>
+										<textarea class="textarea form-control" name="deskripsi"><?php echo $data->deskripsi; ?></textarea>
 									</div>
 								</div>
 								<div class="col-lg-3 col-lg-offset-1">

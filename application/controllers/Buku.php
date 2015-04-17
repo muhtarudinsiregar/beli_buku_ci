@@ -41,16 +41,49 @@
 				'breadcrumb'=>"Tambah Buku",
 				'kategori'=>$this->Buku_model->tampil_kategori(),
 				'penulis'=>$this->Buku_model->tampil_penulis()
-			);
+				);
 			
 			$this->load->view('layout/home/index',$data);
+		}
 
-			// if ($this->form_validation->run() == FALSE){
-			// 	$this->load->view('template/admin/index',$data);
-			//  // echo validation_errors(); 
-			// }else{
-			// 	$this->proses_tambah();
-			// }
+		public function simpan()
+		{
+			$config = $this->upload->initialize(array(
+				'upload_path' => './img/',
+				'allowed_types' => 'png|jpg|gif|jpeg',
+				'max_size' => '5000',
+				'max_width' => '3000',
+				'max_height' => '3000'
+				)); 
+			
+			$this->load->library('upload',$config);
+
+			// var_dump($config);
+			if (!$this->upload->do_upload())
+			{
+				$error = array(
+					'error' => $this->upload->display_errors(),
+					'main'=>'buku/tambah',
+					'breadcrumb'=>'Tambah Buku'
+					);
+				echo $error['error'];
+			}
+			else
+			{
+				$upload_data =$this->upload->data();
+				$data = array(
+					'judul'=>$this->input->post('judul'),
+					'id_ktgr'=>$this->input->post('kategori'),
+					'id_pen'=>$this->input->post('penulis'),
+					'harga'=>$this->input->post('harga'),
+					'tahun'=>$this->input->post('tahun'),
+					'deskripsi'=>$this->input->post('deskripsi'),
+					'gambar'=>$upload_data['raw_name'].$upload_data['file_ext']
+					);
+				// var_dump($data['gambar']);
+				$this->Buku_model->tambah($data);
+				redirect('buku/tambah');
+			}
 		}
 
 		public function proses_tambah()
@@ -63,7 +96,7 @@
 				'max_height' => '3000'
 				)); 
 			
-			$this->load->library('upload',$config);
+			// $this->load->library('upload',$config);
 			
 			if ($this->upload->do_upload()){
 				$upload_data =$this->upload->data();
@@ -109,13 +142,16 @@
 		public function edit($id)
 		{
 			$data = [
-				'data'=> $this->Buku_model->edit($id),
-				'judul'=> "Edit Artikel",
-				'main' =>"buku/edit_buku"
+			'data'=> $this->Buku_model->edit($id),
+			'judul'=> "Edit Buku",
+			'main' =>"buku/edit",
+			'breadcrumb' =>"Edit Buku",
+			'kategori'=>$this->Buku_model->tampil_kategori(),
+			'penulis'=>$this->Buku_model->tampil_penulis()
 			];
 
 			// $array_baru = array($data['edit']);
-			$this->load->view('template/admin/index',$data);
+			$this->load->view('layout/home/index',$data);
 		}
 		public function update($id)
 		{
@@ -123,8 +159,10 @@
 		}
 
 		public function hapus($id)
-		{
+		{	$gambar = $this->Buku_model->get_gambar($id);
+			unlink("img/" . $gambar->gambar);
 			$this->Buku_model->hapus($id);
+
 			$this->session->set_flashdata('notifikasi', '<div class="alert alert-success alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<strong>Berhasil </strong>Menghapus Artikel
