@@ -8,7 +8,11 @@
 
 		public function tampil_buku()
 		{
-			return $this->db->get('buku')->result();
+			$this->db->select('id_bk,judul,harga,gambar,nama');
+			$this->db->from('buku AS b');
+			$this->db->join('penulis AS p','p.id_pen=b.id_pen');
+			$query = $this->db->get();
+			return $query->result();
 		}
 		
 		public function tambah($data)
@@ -30,6 +34,15 @@
 		public function hapus($id)
 		{
 			$this->db->delete('buku',array('id'=>$id));
+		}
+
+		public function tampil_kategori()
+		{
+			return $this->db->get('kategori')->result();
+		}
+		public function tampil_penulis()
+		{
+			return $this->db->get('penulis')->result();
 		}
 
 	}

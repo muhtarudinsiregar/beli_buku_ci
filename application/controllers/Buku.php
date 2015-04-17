@@ -9,18 +9,20 @@
 		{
 			parent::__construct();
 			$this->load->model('Buku_model');
+			// $this->load->model('Kategori_model');
 		}
 
 
 		public function index()
 		{ 
 			$data = [
+			'breadcrumb'=>'List Buku',
 			'buku'=>$this->Buku_model->tampil_buku(),
 			'no'=>0,
-			'main'=>'buku/index.php'
+			'main'=>'buku/list'
 
 			];
-			$this->load->view('template/admin/index.php',$data);
+			$this->load->view('layout/home/index', $data);
 			// $this->load->view('template/admin/main.php');
 		}
 
@@ -33,8 +35,15 @@
 
 			// $this->form_validation->set_rules('judul', 'Judul', 'required');
 			// $this->form_validation->set_rules('isi_artikel', 'Isi Artikel', 'required');
-			$data['main'] ='buku/tambah_buku.php';
-			$this->load->view('template/admin/index.php',$data);
+
+			$data = array(
+				'main' =>'buku/tambah',
+				'breadcrumb'=>"Tambah Buku",
+				'kategori'=>$this->Buku_model->tampil_kategori(),
+				'penulis'=>$this->Buku_model->tampil_penulis()
+			);
+			
+			$this->load->view('layout/home/index',$data);
 
 			// if ($this->form_validation->run() == FALSE){
 			// 	$this->load->view('template/admin/index',$data);
@@ -100,7 +109,7 @@
 		public function edit($id)
 		{
 			$data = [
-				'edit'=> $this->Buku_model->edit($id),
+				'data'=> $this->Buku_model->edit($id),
 				'judul'=> "Edit Artikel",
 				'main' =>"buku/edit_buku"
 			];

@@ -34,7 +34,7 @@ class Home extends CI_Controller {
     	{
     		// echo $this->input->post('nama');
             //echo validation_errors(); 
-    		$this->load->view('template/home/index', $data);
+    		$this->load->view('layout/home/index', $data);
     	}else
     	{
     		$this->proses();
@@ -67,7 +67,7 @@ class Home extends CI_Controller {
                 'main'=>'pencarian/index',
                 'breadcrumb'=>'Pencarian'
                 );
-            // $this->load->view('template/home/index', $data);
+            // $this->load->view('layout/home/index', $data);
         }
         else{
 
@@ -78,24 +78,15 @@ class Home extends CI_Controller {
                 );
         }
         
+            // var_dump($data);
         
 
-            $this->load->view('template/home/index', $data);
+            $this->load->view('layout/home/index', $data);
     }// end of function cari
 
-    public function generate_view($data='')
+    public function detail($id_bk)
     {
-        $header = $this->parser->parse('template/parser/header',array(),TRUE);
-        $footer = $this->parser->parse('template/parser/footer',array(),TRUE);
-        $content = $data;
-       
-        $data = [
-        'header'=>$header,
-        'content'=>$content,
-        'footer'=>$footer
-        ];
-        // var_dump($data);
-        $this->parser->parse('pencarian/test_example_blog_post',$data);
+        
     }
 
 
