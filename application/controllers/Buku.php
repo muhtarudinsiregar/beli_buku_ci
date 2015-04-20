@@ -14,7 +14,13 @@
 
 
 		public function index()
-		{ 
+		{ 	
+			// $session = $this->session->userdata('session_id');
+			// if (!$session =="0") {
+			// 	redirect('buku/tambah');
+			// }
+
+			var_dump($session);
 			$data = [
 			'breadcrumb'=>'List Buku',
 			'buku'=>$this->Buku_model->tampil_buku(),

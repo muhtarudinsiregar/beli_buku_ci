@@ -1,6 +1,10 @@
 	<section>
 		<div class="container">
 			<div class="row">
+				<div class="col-lg-3"><h2>Kategori	</h2></div>
+				<div class="col-lg-5 col-lg-offset-4"><h2>Buku Baru	</h2></div>
+			</div>
+			<div class="row">
 				<div class="col-sm-3">
 					<div class="left-sidebar">
 						<h2>Category</h2>
@@ -115,38 +119,36 @@
 				</div>
 				
 				<div class="col-sm-9 padding-right">
-					<div class="features_items"><!--features_items-->
-						<h2 class="title text-center">Features Items</h2>
-						<?php 
-							foreach ($query as $value) {
-							
-						 ?>
+					<?php 
+					foreach ($query as $value) {
 
-						<div class="col-sm-3" style="padding: 10px 17.4px;">
-							<div class="product-image-wrapper">
-								<div class="single-products">
-									<div class="productinfo text-center">
+						?>
+
+						<div class="col-md-3" style="padding: 10px 17.4px;">
+							<div class="thumbnail">
+								<div class="caption">
+									<div class="text-center">
 										<img width="115" height="162" src="<?php echo site_url("img/$value->gambar"); ?>" alt="" />
-										<h2><?php echo anchor('home/detail/'.$value->id_bk.'',"$value->judul"); ?></h2>
-										<p>Rp. <?php echo $value->harga; ?></p>
-										<p>Oleh :<?php echo $value->nama; ?></p>
+										<h5><?php echo anchor('home/detail/'.$value->id_bk.'',"$value->judul"); ?></h5>
+										<h6>Rp. <?php echo $value->harga; ?></h6>
+										<h6>Oleh :<?php echo $value->nama; ?></h6>
 										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 									</div>
 								</div>
 							</div>
 						</div>
-					<?php } ?> <!-- penutup foreach --> 
+						<?php } ?> <!-- penutup foreach --> 
 
 					</div><!--features_items-->
-				</div>
-				<div class="row">
-					<ul class="pagination">
+
+					<div class="row">
+						<ul class="pagination">
 							<li class="active"><a href="">1</a></li>
 							<li><a href="">2</a></li>
 							<li><a href="">3</a></li>
 							<li><a href="">&raquo;</a></li>
 						</ul>
+					</div>
 				</div>
 			</div>
-		</div>
-	</section>
+		</section>
