@@ -89,7 +89,14 @@ class Home extends CI_Controller {
         
     }
 
-
+    public function login()
+    {
+        $data = array(
+            'breadcrumb'=>'Login',
+            'main'=>'pendaftaran/login'
+            );
+        $this->load->view('layout/home/index', $data);
+    }
 
 }//main
 

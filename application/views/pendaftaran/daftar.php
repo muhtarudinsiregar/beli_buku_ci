@@ -1,57 +1,56 @@
-<section id="form"><!--form-->
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-6 col-sm-offset-3">
-        <div class="signup-form"><!--sign up form-->
-          <h2>New User Signup!</h2>
-          <div class="text-left">
+<div class="container">    
+  <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                 
+    <div class="panel panel-info" >
+      <div class="panel-heading">
+        <div class="panel-title">Daftar </div>
+        <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>
+      </div>     
 
-          </div>
-          <?php echo form_open('home/pendaftaran', 'role="form"'); ?>
-          <div class="form-group">
-            <label for="inputEmail3" class="col-sm-3 control-label" name="Nama">Nama*</label>
-            <div class="col-sm-9">
-              <input type="text" name="nama" class="form-control input-sm" placeholder="Nama" value="<?php echo set_value('nama'); ?>">
-              <?php echo form_error('nama'); ?> 
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="inputEmail3" class="col-sm-3 control-label">Email*</label>
-            <div class="col-sm-9">
-              <input type="email" name="email" class="form-control input-sm" id="inputEmail3" placeholder="Email">
-              <?php echo form_error('email'); ?>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="inputEmail3" class="col-sm-3 control-label">Password*</label>
-            <div class="col-sm-9">
-              <input type="password" name="password" class="form-control input-sm" id="inputEmail3" placeholder="Password">
-              <?php echo form_error('password'); ?>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="inputEmail3" class="col-sm-3 control-label">Ulangi Password*</label>
-            <div class="col-sm-9">
-              <input type="password" name="re_password" class="form-control input-sm" id="inputEmail3" placeholder="Re Password">
-              <?php echo form_error('re_password'); ?>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="inputEmail3" class="col-sm-3 control-label">Nomer HP</label>
-            <div class="col-sm-9">
-              <input type="text" name="nohp" class="form-control input-sm" id="inputEmail3" placeholder="No HP">
-              <?php echo form_error('nohp'); ?>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-9 col-sm-offset-3">
-              <button type="submit"class="btn btn-primary">Daftar</button>
-            </div>
-          </div>
-          <!-- <button type="submit" class="btn btn-succes">Signup</button> -->
-        <?php echo form_close(); ?>
-      </div><!--/sign up form-->
-    </div>
-  </div>
+      <div class="panel-body" style="padding-top:30px">
+      <?php echo form_open('daftar', array('class'=>'form-horizontal')); ?>
+      <div class="form-group">
+        <label for="email" class="col-md-2  control-label">Email</label>
+        <div class="col-md-9">
+          <input type="text" class="form-control" name="email" placeholder="Alamat Email" 
+          value="">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="firstname" class="col-md-2  control-label">Nama Lengkap</label>
+        <div class="col-md-9">
+          <input type="text" class="form-control" name="nama" placeholder="Nama Lengkap">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="firstname" class="col-md-2  control-label">Nomor Hp</label>
+        <div class="col-md-9">
+          <input type="text" class="form-control" name="no_hp" placeholder="Nomor HP">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password" class="col-md-2  control-label">Password</label>
+        <div class="col-md-9">
+          <input type="password" class="form-control" name="password" placeholder="Password"> 
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password" class="col-md-2  control-label">Ulangi Password</label>
+        <div class="col-md-9">
+          <input type="password" class="form-control" name="re_password" placeholder=" Ulangi Password"> 
+        </div>
+      </div>
+      <div class="form-group">
+        <!-- Button -->                                        
+        <div class="col-md-offset-3 col-md-9">
+          <button id="btn-signup" type="submit" class="btn btn-info">Daftar</button>
+          <span style="margin-left:8px; margin-right:8px;">or</span>
+          <button id="btn-signup" type="submit" class="btn btn-success">Masuk
+          </button>
+        </div>
+      </div>
+      <?php echo form_close(); ?> 
+      </div> 
+    </div>                     
+  </div>  
 </div>
-</section><!--/form-->

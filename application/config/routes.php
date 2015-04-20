@@ -41,9 +41,10 @@
 $route['default_controller'] = "home";
 $route['404_override'] = '';
 $route['daftar'] ='home/pendaftaran';
+$route['masuk'] ='home/login';
  
-$route['admin/buku/delete/(:num)'] = "buku/edit/$1";
-$route['admin/buku/edit/(:num)'] = "buku/edit/$1";
+// $route['admin/buku/delete/(:num)'] = "buku/edit/$1";
+// $route['admin/buku/edit/(:num)'] = "buku/edit/$1";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
