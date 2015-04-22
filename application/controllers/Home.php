@@ -20,9 +20,9 @@ class Home extends CI_Controller {
     {
     	$this->form_validation->set_error_delimiters('<div class="alert alert-danger">','</div>');
     	$data = array(
-           'main'=>'pendaftaran/daftar',
-           'breadcrumb'=>'Pendaftaran'
-           );
+         'main'=>'pendaftaran/daftar',
+         'breadcrumb'=>'Pendaftaran'
+         );
 
     	$this->form_validation->set_rules('nama', 'Nama', 'trim|required|min_length[3]|xss_clean');
     	$this->form_validation->set_rules('email', 'Email', 'trim|required|min_length[5]|max_length[12]|xss_clean');
@@ -56,37 +56,20 @@ class Home extends CI_Controller {
 
     public function cari()
     {
-      
         $keyword = $this->input->get('search');
-
-        if (empty($keyword)) {
-            //ketika $keyword kosong maka akan tampil semua
-
-            $data = array(
-                'query'=>$this->Home_model->tampil_all(),
-                'main'=>'pencarian/index',
-                'breadcrumb'=>'Pencarian'
-                );
-            // $this->load->view('layout/home/index', $data);
-        }
-        else{
-
-            $data = array(
-                'query'=>$this->Home_model->cari($keyword),
-                'main'=>'pencarian/index',
-                'breadcrumb'=>'Pencarian'
-                );
-        }
-        
-            // var_dump($data);
-        
-
-            $this->load->view('layout/home/index', $data);
-    }// end of function cari
+        $data = array(
+            'query'=>$this->Home_model->cari($keyword),
+            'kategori'=>$this->Home_model->kategori(),
+            'main'=>'pencarian/index',
+            'breadcrumb'=>'Pencarian'
+            );
+        // var_dump($data['query']);
+        $this->load->view('layout/home/index', $data);
+    }
 
     public function detail($id_bk)
     {
-        
+
     }
 
     public function login()

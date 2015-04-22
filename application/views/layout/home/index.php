@@ -52,7 +52,7 @@
                 <?php echo form_open('home/cari',array('class'=>'navbar-form','method'=>'GET'))?>
                 <div class="form-group" style="display:inline;">
                     <div class="input-group" style="display:table;">
-                        <input class="form-control" id="keyword" name="search" placeholder="Judul, Pengarang" autocomplete="off" autofocus="autofocus" type="text">
+                        <input class="form-control" required id="keyword" name="search" placeholder="Judul, Pengarang" autocomplete="off" autofocus="autofocus" type="text">
                    <!--      <span class="input-group-btn" style="width:1%">
                             <select class="form-control" name="kategori">
                               <option value="0">Semua Kategori</option>
