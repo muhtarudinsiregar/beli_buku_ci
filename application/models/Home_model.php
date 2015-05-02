@@ -58,7 +58,6 @@ class Home_model extends CI_Model {
 		$this->db->join('penulis AS p','p.id_pen = b.id_pen');
 		$query = $this->db->get();
 		return $query->result();
-
 	}
 
 	public function lihat($id)
