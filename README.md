@@ -1,2 +1,2 @@
 #####BELI BUKU CI#######
-crud+pencarian
+update halaman utama dan pendaftaran

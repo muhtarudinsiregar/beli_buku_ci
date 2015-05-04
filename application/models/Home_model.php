@@ -11,9 +11,6 @@ class Home_model extends CI_Model {
 	public function cari($keyword)
 	{
 
-		if (is_null($keyword)) {
-			return $query = "Data Tidak Ada";
-		}else{
 			// $this->db->select('id_bk,judul,harga,gambar,nama');
 			// $this->db->from('buku AS b');
 			// $this->db->join('penulis AS p','p.id_pen=b.id_pen');
@@ -23,13 +20,12 @@ class Home_model extends CI_Model {
 			// return $query->result();
 
 			// query menggunakan standar query CI
-			$query =$this->db->query('select id_bk,gambar,judul,harga,p.nama 
-				from penulis p 
-				join buku b on(b.id_pen=p.id_pen) 
-				where judul like "%'.$keyword.'%" or p.nama like "%'.$keyword.'%"'
-				);
-			return $query->result();
-		}
+		$query =$this->db->query('select id_bk,gambar,judul,harga,p.nama 
+			from penulis p 
+			join buku b on(b.id_pen=p.id_pen) 
+			where judul like "%'.$keyword.'%" or p.nama like "%'.$keyword.'%"'
+			);
+		return $query->result();
 
 		
 		// menampilkan semua kolom
@@ -51,7 +47,7 @@ class Home_model extends CI_Model {
 		// var_dump($query->result());
 	}
 
-	public function tampil_all()
+	public function tampil_buku()
 	{
 		$this->db->select('id_bk,judul,harga,gambar,nama');
 		$this->db->from('buku AS b');
@@ -60,13 +56,15 @@ class Home_model extends CI_Model {
 		return $query->result();
 	}
 
-	public function lihat($id)
+	public function detail_buku($id_bk)
 	{
-		$this->select('id_bk,judul,harga,gambar,p.nama,k.nama');
-		$this->from('penulis p');
+		$this->db->select('id_bk,judul,harga,gambar,p.nama,k.nama,p.profil,b.deskripsi');
+		$this->db->from('penulis p');
 		$this->db->join('buku b','b.id_pen=p.id_pen');
-		$this->db->join('kategori k','k.id_ktrg=b.id_ktrg');
+		$this->db->join('kategori k','k.id_ktgr=b.id_ktgr');
+		$this->db->where('b.id_bk',$id_bk);
 		$query = $this->db->get();
+		return $query->row();
 		
 
 	}
@@ -75,6 +73,17 @@ class Home_model extends CI_Model {
 	{
 		$query = $this->db->get('kategori');
 		return $query->result();
+	}
+
+	public function kategori_detail($id)
+	{
+		$this->db->select('id_bk,judul,harga,gambar,nama');
+		$this->db->from('buku AS b');
+		$this->db->join('kategori AS k','k.id_ktgr = b.id_ktgr');
+		$this->db->where('k.id_ktgr', $id);
+		$query = $this->db->get();
+		return $query->result();
+
 	}	
 
 
