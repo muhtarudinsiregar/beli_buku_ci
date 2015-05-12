@@ -26,11 +26,12 @@
 		</div>
 	</div>
 	<div class="col-lg-4">
-		<?php echo form_open('keranjang/simpan',array('class'=>'form-horizontal','method'=>'post'));; ?>
+		<?php echo form_open('keranjang/simpan',array('class'=>'form-horizontal','method'=>'post')); ?>
+		<?php echo form_hidden('id_bk', $data->id_bk); ?>
 		<div class="form-group">
 			<label for="inputPassword" class="col-sm-offset-2 col-lg-2 control-label">Jumlah </label>
 			<div class="col-sm-3">
-				<input required type="number" class="form-control" min="0" max="50" name="jml_bk">
+				<input required type="number" class="form-control" min="1" max="50" name="jml_bk">
 			</div>
 		</div>
 

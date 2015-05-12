@@ -7,6 +7,8 @@ class Home extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('Home_model');
+       // $this->home = new Home_model();
+
         $data['kategori'] = $this->Home_model->kategori();
         $this->load->vars($data);
     }
@@ -18,26 +20,13 @@ class Home extends CI_Controller {
             'main'=>'home/index',
             'breadcrumb'=>'',
             'kategori'=>$this->Home_model->kategori(),
-            );
+            ); 
         $this->load->view('layout/home/index', $data);
     }
 // ------------------------------------------------------------------------
     /**
      *
      */
-    public function pendaftaran()
-    {
-    	
-    }
-// ------------------------------------------------------------------------
-  public function proses()
-  {
-
-    $nama =$this->input->post('nama');
-    
-
-    var_dump($nama);
-}
 
 
     // ------------------------------------------------------------------------

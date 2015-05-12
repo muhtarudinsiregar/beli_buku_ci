@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-3">
             <div class="left-sidebar">
-                <!-- <h2>Category</h2> -->
+                <h2>$data</h2>
                 <div class="panel-group category-products" id="accordian"><!--category-productsr-->
                     <?php foreach ($kategori as $value) {   ?>
                     <div class="panel panel-default">
