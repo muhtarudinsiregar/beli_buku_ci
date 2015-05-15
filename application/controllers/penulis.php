@@ -11,6 +11,7 @@ class Penulis extends CI_Controller {
 	{
 		$data = array(
 			'main'=>'penulis/list.php',
+			'sidebar'=>'layout/home/sidebar_admin',
 			'breadcrumb'=>'List Penulis',
 			'data'=>$this->Penulis_model->tampil_penulis()
 			);
@@ -21,6 +22,7 @@ class Penulis extends CI_Controller {
 	{
 		$data =array(
 			'main'=>'penulis/create.php',
+			'sidebar'=>'layout/home/sidebar_admin',
 			'breadcrumb'=>'Tambah Penulis'
 			);
 		$this->load->view('layout/home/index.php',$data);
@@ -38,6 +40,7 @@ class Penulis extends CI_Controller {
 	{
 		$data =array(
 			'main'=>'penulis/edit.php',
+			'sidebar'=>'layout/home/sidebar_admin',
 			'breadcrumb'=>'Ubah Kategori',
 			'data'=>$this->Penulis_model->edit($id)
 			);

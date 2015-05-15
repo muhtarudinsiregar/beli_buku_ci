@@ -14,6 +14,7 @@ class Kategori extends CI_Controller {
 		$data = array(
 			'main'=>'kategori/list.php',
 			'breadcrumb'=>'List Kategori',
+			'sidebar'=>'layout/home/sidebar_admin',
 			'data'=>$this->Kategori_model->tampil_kategori()
 			);
 		$this->load->view('layout/home/index.php', $data);
@@ -23,6 +24,7 @@ class Kategori extends CI_Controller {
 	{
 		$data =array(
 			'main'=>'kategori/create.php',
+			'sidebar'=>'layout/home/sidebar_admin',
 			'breadcrumb'=>'Tambah Kategori'
 			);
 		$this->load->view('layout/home/index.php',$data);
@@ -41,6 +43,7 @@ class Kategori extends CI_Controller {
 		$data =array(
 			'main'=>'kategori/edit.php',
 			'breadcrumb'=>'Ubah Kategori',
+			'sidebar'=>'layout/home/sidebar_admin',
 			'data'=>$this->Kategori_model->edit($id)
 			);
 		// var_dump($data['kategori']);

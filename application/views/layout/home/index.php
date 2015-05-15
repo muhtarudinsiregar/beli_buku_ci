@@ -40,19 +40,19 @@
             <div class="navbar-collapse collapse" id="searchbar">
                 <ul class="nav navbar-nav navbar-left">
                     <li id="userPage" class="custom-cari">
-                         <li><a href="#">Pencarian</a></li>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="<?php echo site_url('daftar'); ?>">Daftar</a></li>
-                    <li><a href="<?php echo site_url('login') ?>">Login</a></li>
-                    <li><a href="<?php echo site_url('keranjang'); ?>" class ='span-left'><i class="fa fa-shopping-cart"></i> Keranjang</a></li>
-                </ul>
-                <!-- <form class="navbar-form"> -->
-                <?php echo form_open('home/cari',array('class'=>'navbar-form','method'=>'GET'))?>
-                <div class="form-group" style="display:inline;">
-                    <div class="input-group" style="display:table;">
-                        <input class="form-control" required id="keyword" name="search" placeholder="Judul, Pengarang" autocomplete="off" autofocus="autofocus" type="text">
+                       <li><a href="#">Pencarian</a></li>
+                   </li>
+               </ul>
+               <ul class="nav navbar-nav navbar-right">
+                <li><a href="<?php echo site_url('daftar'); ?>">Daftar</a></li>
+                <li><a href="<?php echo site_url('login') ?>">Login</a></li>
+                <li><a href="<?php echo site_url('keranjang'); ?>" class ='span-left'><i class="fa fa-shopping-cart"></i> Keranjang</a></li>
+            </ul>
+            <!-- <form class="navbar-form"> -->
+            <?php echo form_open('home/cari',array('class'=>'navbar-form','method'=>'GET'))?>
+            <div class="form-group" style="display:inline;">
+                <div class="input-group" style="display:table;">
+                    <input class="form-control" required id="keyword" name="search" placeholder="Judul, Pengarang" autocomplete="off" autofocus="autofocus" type="text">
                    <!--      <span class="input-group-btn" style="width:1%">
                             <select class="form-control" name="kategori">
                               <option value="0">Semua Kategori</option>
@@ -73,24 +73,27 @@
     </div>
 </nav>
 
-
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <ol class="breadcrumb">
-                <li><a href="<?php echo site_url(); ?>">Home</a></li>
+            <ol class="breadcrumb item">
+                <li class=""><a href="<?php echo site_url('/'); ?>">Home</a></li>
                 <li class="active"><?php echo $breadcrumb; ?></li>
             </ol>
         </div>
     </div>
+    <div class="row">
+        <?php if (!empty($sidebar)) {
+            $this->load->view($sidebar);
+        } ?>
 
-<?php $this->load->view($main); ?>
+        <?php $this->load->view($main); ?>
+    </div>
 </div>
 
 
 
 <script src="<?php echo base_url('assets/js/jquery.js') ?>"></script>
 <script src="<?php echo base_url('assets/js/bootstrap.min.js') ?>"></script>
-
 </body>
 </html>

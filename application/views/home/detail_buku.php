@@ -16,11 +16,15 @@
 			<table class="table">
 				<tr>
 					<th>Penulis</th>
-					<td><?php echo $data->nama; ?></td>
+					<td><?php echo $data->penulis; ?></td>
 				</tr>
 				<tr>
 					<th>Harga</th>
 					<td class="harga"><?php echo $data->harga; ?></td>
+				</tr>
+				<tr>
+					<th>Kategori</th>
+					<td><?php echo anchor('home/kategori_detail/'.$data->id_ktgr, $data->kategori); ?></td>
 				</tr>
 			</table>
 		</div>

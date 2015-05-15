@@ -58,7 +58,7 @@ class Home_model extends CI_Model {
 
 	public function detail_buku($id_bk)
 	{
-		$this->db->select('id_bk,judul,harga,gambar,p.nama,k.nama,p.profil,b.deskripsi');
+		$this->db->select('id_bk,judul,harga,gambar,p.nama as penulis,k.nama as kategori,p.profil,b.deskripsi,k.id_ktgr');
 		$this->db->from('penulis p');
 		$this->db->join('buku b','b.id_pen=p.id_pen');
 		$this->db->join('kategori k','k.id_ktgr=b.id_ktgr');
@@ -71,14 +71,19 @@ class Home_model extends CI_Model {
 
 	public function kategori()
 	{
-		$query = $this->db->get('kategori');
+
+		$this->db->select('*');
+		$this->db->from('kategori');
+		$this->db->order_by("nama", "asc");
+		$query = $this->db->get(); 
 		return $query->result();
 	}
 
 	public function kategori_detail($id)
 	{
-		$this->db->select('id_bk,judul,harga,gambar,nama');
-		$this->db->from('buku AS b');
+		$this->db->select('id_bk,judul,harga,gambar,k.nama as kategori,p.nama as penulis');
+		$this->db->from('penulis AS p');
+		$this->db->join('buku AS b','b.id_pen = p.id_pen');
 		$this->db->join('kategori AS k','k.id_ktgr = b.id_ktgr');
 		$this->db->where('k.id_ktgr', $id);
 		$query = $this->db->get();

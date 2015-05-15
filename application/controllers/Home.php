@@ -19,7 +19,8 @@ class Home extends CI_Controller {
             'data'=>$this->Home_model->tampil_buku(),
             'main'=>'home/index',
             'breadcrumb'=>'',
-            'kategori'=>$this->Home_model->kategori(),
+            'sidebar'=>'layout/home/sidebar_home',
+            'kategori'=>$this->Home_model->kategori()
             ); 
         $this->load->view('layout/home/index', $data);
     }
@@ -39,6 +40,7 @@ public function cari()
         'query'=>$this->Home_model->cari($keyword),
             // 'kategori'=>$this->Home_model->kategori(),
         'main'=>'home/pencarian',
+        'sidebar'=>'layout/home/sidebar_home',
         'breadcrumb'=>'Pencarian'
         );
         // var_dump($data['query']);
@@ -50,7 +52,8 @@ public function detail($id_bk)
     $data = [
     'breadcrumb'=>'Buku',
     'data'=>$this->Home_model->detail_buku($id_bk),
-    'main'=>'home/detail_buku'
+    'main'=>'home/detail_buku',
+    'sidebar'=>''
     ];
         // var_dump($data['data']);
     $this->load->view('layout/home/index', $data);
@@ -61,6 +64,7 @@ public function kategori_detail($id)
     $data = array(
         'main'=>'home/kategori_detail',
         'data'=>$this->Home_model->kategori_detail($id),
+        'sidebar'=>'layout/home/sidebar_home',
         'breadcrumb'=>'Kategori'
         );
     $this->load->view('layout/home/index', $data);

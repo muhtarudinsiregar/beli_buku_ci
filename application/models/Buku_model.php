@@ -24,7 +24,6 @@
 		{
 			return $this->db->get_where('buku',array('id_bk'=>$id))->row();
 		}
-
 		public function update($data,$id)
 		{
 			$this->db->where('id_bk', $id);

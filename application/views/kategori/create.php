@@ -1,11 +1,3 @@
-<div class="row">
-	<h2>Tambah Kategori</h2>
-</div>
-<div class="row">
-	<div class="col-lg-3">
-		Lorem ipsum dolor sit amet.
-	</div>
-
 	<div class="col-lg-9">
 		<?php echo form_open('kategori/simpan',array('class'=>'form-horizontal','method'=>'POST')) ?>
 
@@ -32,4 +24,3 @@
 		<?php echo form_close(); ?>
 
 	</div>
-</div>
