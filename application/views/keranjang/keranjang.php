@@ -35,7 +35,7 @@
                                 </div>
                             </div>
                         </td>
-                         <?php echo form_open('keranjang/'.$key); ?>
+                         <?php echo form_open('keranjang/update/'.$key); ?>
                         <td data-th="Quantity">
                             <input type="number" class="form-control text-center" value="<?php echo $value->jumlah_buku; ?>" min=1 name="jml_bk">
                         </td>

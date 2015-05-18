@@ -18,21 +18,23 @@
 						</div>
 					</div>
 				</div>
-
+				<!-- <?php var_dump($data) ?> -->
 				<div class="row">
 					<div class="col-lg-5">
 						<div class="form-group">
 							<label for="nama">Kategori Buku</label>
 							<select name="kategori" class="form-control">
 								<?php foreach ($kategori as $key => $value) {
-
+									$selected = ($value->id_ktgr == $data->id_ktgr)? "selected='selected'":''; //sets html flag
+									echo "<option value='$value->id_ktgr' $selected>$value->nama</option>\n";
+									}
 									?>
-									<option value="<?php echo $value->id_ktgr; ?>"><?php echo $value->nama;?></option>
-									<?php } ?>
-								</select>
-							</div>
+									
+									<!-- <option value="<?php echo $value->id_ktgr; ?>"><?php echo $value->nama;?></option> -->
+							</select>
 						</div>
-						<div class="col-lg-5 col-lg-offset-1">
+					</div>
+					<div class="col-lg-5 col-lg-offset-1">
 							<div class="form-group">
 								<label for="nama">Tahun</label>
 								<input type="text" class="form-control" name="tahun" placeholder="Tahun" value="<?php echo $data->tahun; ?>">
@@ -46,10 +48,12 @@
 								<label for="nama">Penulis</label>
 								<select name="penulis" class="form-control">
 									<?php foreach ($penulis as  $value) {
-
+										$selected = ($value->id_pen == $data->id_pen)? "selected='selected'":''; //sets html flag
+										echo "<option value='$value->id_pen' $selected>$value->nama</option>\n";
+										}
 										?>
-										<option value="<?php echo $value->id_pen; ?>"><?php echo $value->nama;?></option>
-										<?php } ?>
+										<!-- <option value="<?php echo $value->id_pen; ?>"><?php echo $value->nama;?></option> -->
+										
 									</select>
 								</div>
 							</div>

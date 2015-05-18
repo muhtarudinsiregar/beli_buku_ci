@@ -61,6 +61,7 @@
 				'allowed_types' => 'png|jpg|gif|jpeg',
 				'max_size' => '5000',
 				'max_width' => '3000',
+				'remove_spaces'=>false,
 				'max_height' => '3000'
 				)); 
 			

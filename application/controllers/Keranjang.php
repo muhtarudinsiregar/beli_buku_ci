@@ -119,6 +119,17 @@ class Keranjang extends CI_Controller {
 		// var_dump($this->session->all_userdata());
 	}
 
+	public function update($index)
+	{
+		$jumlah_buku = $this->input->post('jml_bk');
+
+		$items = $this->session->userdata('items');
+		$items[$index]['item_quantity'] = (int)$jumlah_buku;
+		$this->session->set_userdata('items', $items);
+		// Session::flash('notif','Jumlah Produk telah diubah menjadi '.$jumlah_buku);
+		// return Redirect::back();
+	}
+
 	public function hapus($index)
 	{
 		var_dump($this->session->all_userdata());
