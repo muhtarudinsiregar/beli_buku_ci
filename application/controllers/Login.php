@@ -10,11 +10,56 @@ class Login extends CI_Controller {
 
 	public function index()
 	{
+		$session = $this->session->userdata('isLogin');
+		if ($session == true)
+		{
+			if ($this->session->userdata('lvl')=='admin') {
+				redirect('buku','refresh');
+			}else{
+				redirect('anggota/dashboard','refresh');
+			}
+		}
 		$data = array(
 			'breadcrumb'=>'Login',
 			'main'=>'login/login'
 			);
 		$this->load->view('layout/home/index', $data);
+	}
+
+	public function do_login()
+	{
+		$username = $this->input->post('email');
+		$password = $this->input->post('password');
+		$cek = $this->login_model->cek_user($username,sha1($password));
+		var_dump($username);
+		if (count($cek) == 1)
+		{
+			foreach ($cek as $cek)
+			{
+				$level = $cek['level'];
+			}
+			
+			
+			$this->session->set_userdata(array(
+				'isLogin'=>true,
+				'username'=>$username,
+				'lvl'=>$level,
+				));
+			redirect('buku','refresh');
+		}else
+		{
+			$data['gagal'] = 'Username dan Password Salah!';
+			// redirect('login',$data);
+			var_dump($this->session->all_userdata());
+		}
+
+
+	}
+
+	public function logout()
+	{
+		$this->session->sess_destroy();
+		redirect('login','refresh');
 	}
 
 	public function daftar()
@@ -27,19 +72,19 @@ class Login extends CI_Controller {
 		$data_input = array(
 				'nama'=>$this->input->post('nama'),
 				'email'=>$this->input->post('email'),
-				'password'=>$this->input->post('password'),
+				'password'=>sha1($this->input->post('password')),
 				'no_hp'=>$this->input->post('no_hp'),
 				'level'=>'anggota'
 			);
 		// setting aturan untuk setiap form
 		$this->form_validation->set_rules('nama', 'Nama', 'trim|required|min_length[3]|xss_clean');
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|min_length[5]|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|min_length[5]|xss_clean|is_unique[users.email]');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[5]|matches[re_password]|xss_clean');
 		$this->form_validation->set_rules('re_password', 'Ulangi Password', 'trim|required|min_length[5]|xss_clean');
-		$this->form_validation->set_rules('no_hp', 'No HP', 'trim|required|min_length[11]|max_length[12]|xss_clean');
+		$this->form_validation->set_rules('no_hp', 'Nomor HP', 'trim|required|min_length[11]|max_length[12]|xss_clean');
 
 		// setting pesan error untuk setiap aturan
-		$this->form_validation->set_message('required', ' %s Tidak Boleh Kosong');
+		$this->form_validation->set_message('required', ' %s Harus diisi');
 
 		if ($this->form_validation->run())
 		{

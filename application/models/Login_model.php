@@ -8,6 +8,23 @@ class Login_model extends CI_Model {
 	{
 		$this->db->insert('users', $data);
 	}
+
+	public function cek_user($username="",$password="")
+	{
+		$query =$this->db->get_where('users',array('email'=>$username,'password'=>$password));
+		return $query->result_array(); 
+	}
+
+	public function get_user($username)
+	{
+		$query = $this->db->get_where('users', array('username'=>$username));
+		return $query->result_array();
+		if ($query) {
+			return $query[0];
+		}
+	}
+
+
 	
 
 }

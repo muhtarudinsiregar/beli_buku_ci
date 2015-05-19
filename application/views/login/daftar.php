@@ -3,7 +3,7 @@
         <div class="panel panel-info" >
             <div class="panel-heading">
                 <div class="panel-title">Daftar </div>
-                <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>
+                
             </div>     
 
             <div class="panel-body" style="padding-top:30px">
@@ -21,7 +21,7 @@
                <?php endif ?>
                 <?php echo form_open('daftar', array('class'=>'form-horizontal')); ?>
                 <div class="form-group">
-                   <label for="email" class="col-md-2  control-label">Email</label>
+                   <label for="email" class="col-lg-3  control-label">Email</label>
                    <div class="col-md-9">
                       <input type="text" class="form-control" name="email" placeholder="Alamat Email" 
                       value="<?php echo set_value('email'); ?>">
@@ -29,25 +29,25 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="firstname" class="col-md-2  control-label">Nama Lengkap</label>
+                    <label for="firstname" class="col-lg-3  control-label">Nama Lengkap</label>
                     <div class="col-md-9">
                         <input type="text" class="form-control" name="nama" placeholder="Nama Lengkap" value="<?php echo set_value('nama'); ?>">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="firstname" class="col-md-2  control-label">Nomor Hp</label>
+                    <label for="firstname" class="col-lg-3  control-label">Nomor Hp</label>
                     <div class="col-md-9">
                         <input type="text" class="form-control" name="no_hp" placeholder="Nomor HP" value="<?php echo set_value('no_hp'); ?>">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="password" class="col-md-2  control-label">Password</label>
+                    <label for="password" class="col-lg-3  control-label">Password</label>
                     <div class="col-md-9">
                         <input type="password" class="form-control" name="password" placeholder="Password"> 
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="password" class="col-md-2  control-label">Ulangi Password</label>
+                    <label for="password" class="col-lg-3  control-label">Ulangi Password</label>
                     <div class="col-md-9">
                         <input type="password" class="form-control" name="re_password" placeholder=" Ulangi Password"> 
                     </div>

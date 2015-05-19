@@ -11,21 +11,36 @@ class Home_model extends CI_Model {
 	public function cari($keyword)
 	{
 
-			// $this->db->select('id_bk,judul,harga,gambar,nama');
-			// $this->db->from('buku AS b');
-			// $this->db->join('penulis AS p','p.id_pen=b.id_pen');
-			// $this->db->like("b.judul",$keyword);
-			// $this->db->or_like("p.nama",$keyword);
-			// $query = $this->db->get();
-			// return $query->result();
+
+			$this->db->select('id_bk,judul,harga,gambar,nama');
+			$this->db->from('buku AS b');
+			$this->db->join('penulis AS p','p.id_pen=b.id_pen');
+			$this->db->like("b.judul",$keyword);
+			$this->db->or_like("p.nama",$keyword);
+			$query = $this->db->get();
+			return $query->result();
+
+
+			// ------------------------------------------------------------------------
+
+			// method chaining
+				// return $query = $this->db->select('id_bk,judul,harga,gambar,nama')
+				// ->from('buku AS b')
+				// ->join('penulis AS p','p.id_pen=b.id_pen')
+				// ->like("b.judul",$keyword)
+				// ->or_like("p.nama",$keyword)
+				// ->get()
+				// ->result(); 
+
+			// ------------------------------------------------------------------------
 
 			// query menggunakan standar query CI
-		$query =$this->db->query('select id_bk,gambar,judul,harga,p.nama 
-			from penulis p 
-			join buku b on(b.id_pen=p.id_pen) 
-			where judul like "%'.$keyword.'%" or p.nama like "%'.$keyword.'%"'
-			);
-		return $query->result();
+		// $query =$this->db->query('select id_bk,gambar,judul,harga,p.nama 
+		// 	from penulis p 
+		// 	join buku b on(b.id_pen=p.id_pen) 
+		// 	where judul like "%'.$keyword.'%" or p.nama like "%'.$keyword.'%"'
+		// 	);
+		// return $query->result();
 
 		
 		// menampilkan semua kolom

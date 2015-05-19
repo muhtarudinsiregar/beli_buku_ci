@@ -144,6 +144,16 @@ class Keranjang extends CI_Controller {
 			);
 		return Redirect('keranjang',$data);
 	}
+
+	public function checkout()
+	{
+		$isLogin = $this->session->userdata('isLogin');
+		if ($isLogin == false) {
+			Redirect('login');
+		}else{
+			
+		}
+	}
 }
 
 /* End of file Keranjang.php */

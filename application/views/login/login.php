@@ -3,11 +3,11 @@
 		<div class="panel panel-info" >
 			<div class="panel-heading">
 				<div class="panel-title">Masuk </div>
-				<div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>
+				<!-- <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div> -->
 			</div>     
 
 			<div class="panel-body" style="padding-top:30px">
-				<?php echo form_open('daftar', array('class'=>'form-horizontal')); ?>
+				<?php echo form_open('login/do_login', array('class'=>'form-horizontal')); ?>
 				<div style="margin-bottom: 25px" class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 					<input id="login-username" type="text" class="form-control" name="email" value="" placeholder="email">  </div>
