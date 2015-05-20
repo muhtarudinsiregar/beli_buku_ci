@@ -9,8 +9,11 @@ class Keranjang extends CI_Controller {
 		$this->load->model('Keranjang_model');
 	}
 
+
+
 	public function index()
 	{
+		// var_dump($this->session->all_userdata());
 		if ($this->session->userdata('items')) {
 			$data = $this->session->userdata('items');
 			// var_dump($data);
@@ -35,17 +38,25 @@ class Keranjang extends CI_Controller {
 				$data_book =$this->Keranjang_model->get_book_name($id_buku);
 				// var_dump($data_book);
 				// memasukkan data jml buku dari session ke array yg ditampilkan
-
+				
 				foreach ($data as $key=> $value) {
 					$data_book[$key]->jumlah_buku = $data[$key]['item_quantity'];
 					$data_book[$key]->total = $data[$key]['item_quantity'] * $data_book[$key]->harga;
-					
 				}
-				// var_dump($data[0]);
+					
+				foreach ($data_book as $key => $value) {
+					$total = 0;
+					$total = $total + $value->total;
+				}
+				if ($total==0) {
+					$total = 0;
+				}
+
 				$data = [
 				'main'=>'keranjang/keranjang',
 				'breadcrumb'=>'Keranjang',
-				'data_book'=>$data_book
+				'data_book'=>$data_book,
+				'total'=>number_format($total,0,',','.')
 				];
 
 			}
@@ -54,7 +65,8 @@ class Keranjang extends CI_Controller {
 
 			$data = [
 			'main'=>'keranjang/keranjang',
-			'breadcrumb'=>'Keranjang'
+			'breadcrumb'=>'Keranjang',
+			'total'=>0
 			];
 		}
 		// var_dump($data);
@@ -145,13 +157,38 @@ class Keranjang extends CI_Controller {
 		return Redirect('keranjang',$data);
 	}
 
-	public function checkout()
+	public function pesan()
 	{
 		$isLogin = $this->session->userdata('isLogin');
 		if ($isLogin == false) {
 			Redirect('login');
 		}else{
-			
+			$data = $this->session->userdata('items');
+			foreach ($data as $value)
+				{
+					$id[]=$value['item_id'];
+					$jumlah[] = $value['item_quantity'];
+				}
+				$id_buku = implode(',',$id);
+				// var_dump($id_buku);
+				// memasukkan id buku di session ke dalam database untuk mencari buku 
+				$data_book =$this->Keranjang_model->get_book_name($id_buku);
+				// var_dump($data_book);
+				// memasukkan data jml buku dari session ke array yg ditampilkan
+
+				foreach ($data as $key=> $value) {
+					$data_book[$key]->jumlah_buku = $data[$key]['item_quantity'];
+					$data_book[$key]->total = $data[$key]['item_quantity'] * $data_book[$key]->harga;
+					
+				}
+				// var_dump($data[0]);
+				$data = [
+				'main'=>'keranjang/keranjang_order',
+				'breadcrumb'=>'Keranjang',
+				'data_book'=>$data_book
+				];
+
+			$this->load->view('layout/home/index', $data);
 		}
 	}
 }

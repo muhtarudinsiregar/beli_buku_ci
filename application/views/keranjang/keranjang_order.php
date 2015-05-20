@@ -58,29 +58,14 @@
             <?php endif; ?>
             </tbody>
             <tfoot>
-                <tr>
-                    <td colspan="" class="hidden-xs"></td>
-                    <td class="text-center">
-                        <h4>
-                            <strong>Total Harga</strong>
-                        </h4>
-                    </td>
-                    <td class="text-center">
-                        <h4>
-                            <strong>Rp <?php echo $total; ?></strong>
-
-                        </h4>
-                    </td>
-                    <td class="text-center"></td>
+                <tr class="visible-xs">
+                    <td class="text-center"><strong>Total 1.99</strong></td>
                 </tr>
                 <tr>
                     <td><a href="<?php echo site_url('home'); ?>" class="btn btn-warning"><i class="fa fa-angle-left"></i> Lanjut Berbelanja</a></td>
                     <td colspan="2" class="hidden-xs"></td>
 
-                    <td><a href="<?php echo site_url('keranjang/pesan'); ?>" class="btn btn-info btn-block">Pembayaran <i class="fa fa-angle-right"></i></a></td>
-                </tr>
-                <tr>
-                    
+                    <td><a href="<?php echo site_url('keranjang/pesan'); ?>" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
                 </tr>
             </tfoot>
         </table>
