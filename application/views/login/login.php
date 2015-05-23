@@ -5,7 +5,6 @@
 				<div class="panel-title">Masuk </div>
 				<!-- <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div> -->
 			</div>     
-
 			<div class="panel-body" style="padding-top:30px">
 				<?php echo form_open('login/do_login', array('class'=>'form-horizontal')); ?>
 				<div style="margin-bottom: 25px" class="input-group">

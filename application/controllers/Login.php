@@ -45,7 +45,12 @@ class Login extends CI_Controller {
 				'username'=>$username,
 				'lvl'=>$level,
 				));
-			redirect('buku','refresh');
+			if ($level=='admin') {
+				redirect('buku','refresh');
+			}else{
+				redirect('/');
+			}
+
 		}else
 		{
 			$data['gagal'] = 'Username dan Password Salah!';
@@ -64,46 +69,46 @@ class Login extends CI_Controller {
 
 	public function daftar()
 	{
-		// $this->form_validation->set_error_delimiters('<div class="alert alert-danger">','</div>');
-
-		
-
-		// $data_input =$this->input->post();
+		// ambil data form
 		$data_input = array(
-				'nama'=>$this->input->post('nama'),
-				'email'=>$this->input->post('email'),
-				'password'=>sha1($this->input->post('password')),
-				'no_hp'=>$this->input->post('no_hp'),
-				'level'=>'anggota'
+			'nama'=>$this->input->post('nama'),
+			'email'=>$this->input->post('email'),
+			'password'=>sha1($this->input->post('password')),
+			'no_hp'=>$this->input->post('no_hp'),
+			'level'=>'anggota'
 			);
-		// setting aturan untuk setiap form
-		$this->form_validation->set_rules('nama', 'Nama', 'trim|required|min_length[3]|xss_clean');
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|min_length[5]|xss_clean|is_unique[users.email]');
-		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[5]|matches[re_password]|xss_clean');
-		$this->form_validation->set_rules('re_password', 'Ulangi Password', 'trim|required|min_length[5]|xss_clean');
-		$this->form_validation->set_rules('no_hp', 'Nomor HP', 'trim|required|min_length[11]|max_length[12]|xss_clean');
+		
+		// setting aturan untuk setiap form menggunakan cascading
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[users.email]');
+		$this->form_validation->set_rules('nama', 'Nama', 'required|min_length[3]');
+		$this->form_validation->set_rules('no_hp', 'Nomor HP', 'required|min_length[11]|max_length[12]|numeric');
+		$this->form_validation->set_rules('password', 'Password', 'required|min_length[5]|matches[re_password]');
+		$this->form_validation->set_rules('re_password', 'Ulangi Password', 'required|min_length[5]|matches[password]');
 
-		// setting pesan error untuk setiap aturan
-		$this->form_validation->set_message('required', ' %s Harus diisi');
+		// setting untuk pesan error
+		$messages = array(
+			'required' => 'Bagian  %s Harus diisi',
+			'min_length' => '%s Panjang Minimal 3 huruf',
+			'max_length' => '%s Panjang Maksimal 12 huruf',
+			'valid_email' => 'Bagian %s Harus berisi email yang valid',
+			'is_unique' => '%s Sudah ada yang menggunakan.',
+			'matches' => 'Bagian %s tidak sama dengan bagian %s.'
+			);
 
+		$this->form_validation->set_message($messages);
+		// menjalankan validasi
 		if ($this->form_validation->run())
 		{
 			$this->login_model->daftar($data_input);
 			$this->session->set_flashdata('sukses', ' Mendaftar Sebagai Anggota');
-			 redirect('daftar');
+			redirect('daftar');
 		}else{
 			$data = array(
-			'breadcrumb'=>'Daftar',
-			'main'=>'login/daftar',
-			'data_input' =>$this->input->post()
-			);
-			// var_dump($data_input);
-		$this->load->view('layout/home/index', $data);
-	
+				'breadcrumb'=>'Daftar',
+				'main'=>'login/daftar'
+				);
+			$this->load->view('layout/home/index', $data);
 		}
-		
-		
-		
 	}
 
 }

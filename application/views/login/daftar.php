@@ -3,17 +3,15 @@
         <div class="panel panel-info" >
             <div class="panel-heading">
                 <div class="panel-title">Daftar </div>
-                
             </div>     
-
             <div class="panel-body" style="padding-top:30px">
-                <?php if (validation_errors()): ?>
+                <!-- <?php if (validation_errors()): ?> -->
                     <div class="alert alert-danger">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <?php echo validation_errors(); ?>
-                </div>
-                <?php endif ?>
-               <?php if ($this->session->userdata('sukses')): ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <?php echo validation_errors(); ?>
+                    </div>
+                <!-- <?php endif ?> -->
+               <?php if ($this->session->flashdata('sukses')): ?>
                     <div class="alert alert-success">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <strong>Berhasil</strong> <?php echo $this->session->flashdata('sukses'); ?>
@@ -56,10 +54,10 @@
                   <!-- Button -->                                        
                     <div class="col-md-offset-3 col-md-9">
                         <button id="btn-signup" type="submit" class="btn btn-info" value="" name="submit">Daftar</button>
-                        <span style="margin-left:8px; margin-right:8px;">or</span>
+                        <!-- <span style="margin-left:8px; margin-right:8px;">or</span>
                         <button id="btn-signup" type="submit" class="btn btn-success">
                             Masuk
-                        </button>
+                        </button> -->
                     </div>
                 </div>
                 <?php echo form_close(); ?> 
