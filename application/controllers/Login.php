@@ -48,14 +48,22 @@ class Login extends CI_Controller {
 			if ($level=='admin') {
 				redirect('buku','refresh');
 			}else{
-				redirect('/');
+				if ($this->session->userdata('redirect'))
+				{
+					redirect($this->session->userdata('redirect'));
+				}
+				else
+				{
+					redirect('/');
+				}
 			}
+
 
 		}else
 		{
-			$data['gagal'] = 'Username dan Password Salah!';
-			// redirect('login',$data);
-			var_dump($this->session->all_userdata());
+			$data['gagal'] = 'Username Tidak ada!';
+			redirect('login',$data);
+			// var_dump($this->session->all_userdata());
 		}
 
 
@@ -81,18 +89,19 @@ class Login extends CI_Controller {
 		// setting aturan untuk setiap form menggunakan cascading
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[users.email]');
 		$this->form_validation->set_rules('nama', 'Nama', 'required|min_length[3]');
-		$this->form_validation->set_rules('no_hp', 'Nomor HP', 'required|min_length[11]|max_length[12]|numeric');
+		$this->form_validation->set_rules('no_hp', 'Nomor HP', 'required|numeric|min_length[11]|max_length[12]');
 		$this->form_validation->set_rules('password', 'Password', 'required|min_length[5]|matches[re_password]');
 		$this->form_validation->set_rules('re_password', 'Ulangi Password', 'required|min_length[5]|matches[password]');
 
 		// setting untuk pesan error
 		$messages = array(
 			'required' => 'Bagian  %s Harus diisi',
-			'min_length' => '%s Panjang Minimal 3 huruf',
-			'max_length' => '%s Panjang Maksimal 12 huruf',
+			'min_length' => '%s Panjang Minimal 11 karakter',
+			'max_length' => '%s Panjang Maksimal 12 karakter',
 			'valid_email' => 'Bagian %s Harus berisi email yang valid',
 			'is_unique' => '%s Sudah ada yang menggunakan.',
-			'matches' => 'Bagian %s tidak sama dengan bagian %s.'
+			'matches' => 'Bagian %s tidak sama dengan bagian %s.',
+			'numeric' => ' %s harus berupa angka.'
 			);
 
 		$this->form_validation->set_message($messages);

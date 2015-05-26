@@ -34,7 +34,7 @@ class Keranjang extends CI_Controller {
 				}
 				$id_buku = implode(',',$id);
 				// var_dump($id_buku);
-				// memasukkan id buku di session ke dalam database untuk mencari buku 
+				// memasukkan id buku di session ke dalam database untuk mencari buku in(1,2,3,..) 
 				$data_book =$this->Keranjang_model->get_book_name($id_buku);
 				// var_dump($data_book);
 				// memasukkan data jml buku dari session ke array yg ditampilkan
@@ -43,15 +43,24 @@ class Keranjang extends CI_Controller {
 					$data_book[$key]->jumlah_buku = $data[$key]['item_quantity'];
 					$data_book[$key]->total = $data[$key]['item_quantity'] * $data_book[$key]->harga;
 				}
-					
+				
+				$total = 0;
+				$jml_buku = 0;
 				foreach ($data_book as $key => $value) {
-					$total = 0;
 					$total = $total + $value->total;
+					$jml_buku = $jml_buku + $value->jumlah_buku;
 				}
-				if ($total==0) {
-					$total = 0;
-				}
-
+				$data_buku = array(
+					'total_harga' =>$total,
+					'jumlah_buku' =>$jml_buku
+				);
+				// if ($total==0) {
+				// 	$total = 0;
+				// }
+				
+				
+				$this->session->set_userdata( $data_buku );
+				// var_dump($this->session->all_userdata());
 				$data = [
 				'main'=>'keranjang/keranjang',
 				'breadcrumb'=>'Keranjang',
@@ -139,7 +148,7 @@ class Keranjang extends CI_Controller {
 		$items[$index]['item_quantity'] = (int)$jumlah_buku;
 		$this->session->set_userdata('items', $items);
 		// Session::flash('notif','Jumlah Produk telah diubah menjadi '.$jumlah_buku);
-		// return Redirect::back();
+		return redirect('keranjang');
 	}
 
 	public function hapus($index)
@@ -152,7 +161,7 @@ class Keranjang extends CI_Controller {
 
 		// var_dump($this->session->userdata('items'));	
 		$data = array(
-				'notif'=>'Buku Berhasil Dihapus'
+			'notif'=>'Buku Berhasil Dihapus'
 			);
 		return Redirect('keranjang',$data);
 	}
@@ -161,35 +170,58 @@ class Keranjang extends CI_Controller {
 	{
 		$isLogin = $this->session->userdata('isLogin');
 		if ($isLogin == false) {
+			$this->session->set_userdata('redirect', 'keranjang/pesan');
 			Redirect('login');
 		}else{
-			$data = $this->session->userdata('items');
-			foreach ($data as $value)
-				{
-					$id[]=$value['item_id'];
-					$jumlah[] = $value['item_quantity'];
-				}
-				$id_buku = implode(',',$id);
-				// var_dump($id_buku);
-				// memasukkan id buku di session ke dalam database untuk mencari buku 
-				$data_book =$this->Keranjang_model->get_book_name($id_buku);
-				// var_dump($data_book);
-				// memasukkan data jml buku dari session ke array yg ditampilkan
 
-				foreach ($data as $key=> $value) {
-					$data_book[$key]->jumlah_buku = $data[$key]['item_quantity'];
-					$data_book[$key]->total = $data[$key]['item_quantity'] * $data_book[$key]->harga;
-					
-				}
-				// var_dump($data[0]);
-				$data = [
-				'main'=>'keranjang/keranjang_order',
-				'breadcrumb'=>'Keranjang',
-				'data_book'=>$data_book
-				];
+			$data = [
+			'main'=>'keranjang/keranjang_order',
+			'breadcrumb'=>'Keranjang'
+			];
 
 			$this->load->view('layout/home/index', $data);
 		}
+	}
+	public function konfirmasi()
+	{	
+		$unique =md5(rand(1,9999));
+		$item = $this->session->userdata('items');
+		$total = $this->session->userdata('total_harga');
+		$jml_buku = $this->session->userdata('jumlah_buku');
+
+		foreach ($item as $value) {
+			$detail_item = array(
+				'id_pmsn'=>$unique,
+				'id_bk'=>$value['item_id'],
+				'jumlah'=>$value['item_quantity']
+				);
+			$this->Keranjang_model->pemesanan_detail($detail_item);//insert detail pemesanan ke db satu persatu
+		}
+		$email = $this->session->userdata('username');
+		$user = $this->Keranjang_model->get_id_user($email);//ambil id user
+		// var_dump($item);
+		// date_format(Y-MM-DD);
+		date_default_timezone_set('Asia/Jakarta');
+		$pemesanan = array(
+			'id_pmsn'=>$unique,
+			'id_usr'=>$user->id,
+			'total_harga'=>$total,
+			'jml_bk'=>$jml_buku,
+			'tanggal_pemesanan'=>date('Y-m-d  h:i:s A')
+			);
+		$this->Keranjang_model->pemesanan($pemesanan);
+		var_dump($pemesanan);
+		echo "sukses";
+		$data = array(
+			'items'=>'items',
+			'redirect'=>'redirect',
+			'total_harga'=>'total_harga',
+			'jumlah_buku'=>'jumlah_buku'
+			)
+		$this->session->unset_userdata($data);
+		// $this->session->unset_userdata('redirect');
+		// $this->session->unset_userdata('total_harga');
+		// $this->session->unset_userdata('total_harga');
 	}
 }
 

@@ -6,7 +6,7 @@
 		foreach ($query as $value) {
 			?>
 			<div class="col-md-3">
-				<div class="thumbnail">
+				<div class="thumbnail thumbnail-custom">
 					<div class="caption">
 						<!-- <img width="115" height="212" src="<?php echo site_url("img/$value->gambar"); ?>" alt="" /> -->
 						<?php echo img('img/'.$value->gambar,true); ?>

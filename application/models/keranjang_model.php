@@ -10,6 +10,22 @@ class Keranjang_model extends CI_Model {
 		
 		return $query->result();
 	}
+
+	public function get_id_user($email)
+	{
+		$query = $this->db->get_where('users', array('email' => $email));
+		return $query->row();
+	}
+
+	public function pemesanan_detail($detail_item)
+	{
+		$this->db->insert('pemesanan_detail', $detail_item);
+	}
+
+	public function pemesanan($data_pemesanan)
+	{
+		$this->db->insert('pemesanan', $data_pemesanan);
+	}
 	
 
 }
