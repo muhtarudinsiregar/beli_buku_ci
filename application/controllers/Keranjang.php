@@ -217,7 +217,7 @@ class Keranjang extends CI_Controller {
 			'redirect'=>'redirect',
 			'total_harga'=>'total_harga',
 			'jumlah_buku'=>'jumlah_buku'
-			)
+			);
 		$this->session->unset_userdata($data);
 		// $this->session->unset_userdata('redirect');
 		// $this->session->unset_userdata('total_harga');

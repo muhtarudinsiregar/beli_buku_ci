@@ -22,6 +22,20 @@ class Anggota extends CI_Controller {
 		$this->load->view('layout/home/index', $data);	
 	}
 
+	public function detail_pemesanan($id_pemesanan)
+	{
+		$email = $this->session->userdata('username');
+		$data_user =$this->anggota_model->get_user($email);	
+		$data = array(
+			'main'=>'anggota/detail_pemesanan',
+			'detail_pemesanan'=>$this->anggota_model->detail_pemesanan($id_pemesanan),
+			'breadcrumb'=>'Detail Pemesanan',
+			'sidebar'=>'layout/home/sidebar_anggota'
+			);
+
+		$this->load->view('layout/home/index', $data);
+	}
+
 
 }
 

@@ -5,14 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Login | E-Shopper</title>
+    <title></title>
     <link href="<?php echo base_url('assets/css/bootstrap.min.css');?>" rel="stylesheet">
     <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
     <link href="<?php echo base_url('assets/css/font-awesome.min.css'); ?> "rel="stylesheet">
-    <link href="<?php echo base_url('assets/css/prettyPhoto.css'); ?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/css/price-range.css'); ?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/css/animate.css'); ?>" rel="stylesheet">
-    <!-- <link href="<?php echo base_url('assets/css/main.css'); ?>" rel="stylesheet"> -->
     <link href="<?php echo base_url('assets/css/responsive.css '); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/style.css'); ?>" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -40,38 +36,35 @@
             <div class="navbar-collapse collapse" id="searchbar">
                 <ul class="nav navbar-nav navbar-left">
                     <li id="userPage" class="custom-cari">
-                       <li><a href="#">Pencarian</a></li>
+                       <li><a href="">Pencarian</a></li>
                    </li>
-               </ul>
-               <ul class="nav navbar-nav navbar-right">
-                <li><a href="<?php echo site_url('daftar'); ?>">Daftar</a></li>
-                <li><a href="<?php echo site_url('login') ?>">Login</a></li>
-                <li><a href="<?php echo site_url('keranjang'); ?>" class ='span-left'><i class="fa fa-shopping-cart"></i> Keranjang</a></li>
-            </ul>
-            <!-- <form class="navbar-form"> -->
-            <?php echo form_open('home/cari',array('class'=>'navbar-form','method'=>'GET'))?>
-            <div class="form-group" style="display:inline;">
-                <div class="input-group" style="display:table;">
-                    <input class="form-control" required id="keyword" name="search" placeholder="Judul, Pengarang" autocomplete="off" autofocus="autofocus" type="text">
-                   <!--      <span class="input-group-btn" style="width:1%">
-                            <select class="form-control" name="kategori">
-                              <option value="0">Semua Kategori</option>
-                              <option value="1">Lorem ipsum </option>
-                              <option value="2">Lorem ipsum </option>
-                            
-                          </select>
-                      </span> -->
-                      <span class="input-group-btn" style="width:1%;">
-                        <button type="submit" class="btn btn-success" type="button">  <span class="glyphicon glyphicon-search"></span></button>
-                    </span>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="<?php echo site_url('keranjang'); ?>"><i class="fa fa-shopping-cart"></i> Keranjang</a></li>
+                    <?php if ($this->session->userdata('isLogin')==true): ?>
+                        <li><a href="<?php echo site_url('anggota/dashboard'); ?>">Dashboard</a></li>
+                        <li><a href="<?php echo site_url('login/logout') ?>" class ='span-left'>Logout</a></li>
+                    <?php else: ?>
+                        <li><a href="<?php echo site_url('daftar'); ?>">Daftar</a></li>
+                        <li><a href="<?php echo site_url('login') ?>" class ='span-left'>Login</a></li>
+                    <?php endif ?>
+        
+                </ul>
+                <!-- <form class="navbar-form"> -->
+                <?php echo form_open('home/cari',array('class'=>'navbar-form','method'=>'GET'))?>
+                <div class="form-group" style="display:inline;">
+                    <div class="input-group" style="display:table;">
+                        <input class="form-control" required id="keyword" name="search" placeholder="Judul, Pengarang" autocomplete="off" autofocus="autofocus" type="text">
+                        <span class="input-group-btn" style="width:1%;">
+                            <button type="submit" class="btn btn-success" type="button">  <span class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                    </div>
                 </div>
-            </div>
-            <!-- </form> -->
-            <?php echo form_close(); ?>
-
-        </div><!--/.nav-collapse -->
-    </div>
-</nav>
+                <!-- </form> -->
+                <?php echo form_close(); ?>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
 
 <div class="container">
     <div class="row">
