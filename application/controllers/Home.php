@@ -55,7 +55,8 @@ public function detail($id_bk)
     'main'=>'home/detail_buku',
     'sidebar'=>''
     ];
-        // var_dump($data['data']);
+    
+    $this->session->flashdata('notifikasi','Berhasil');
     $this->load->view('layout/home/index', $data);
 }
 

@@ -9,6 +9,7 @@ class Anggota_model extends CI_Model {
 		$this->db->from('pemesanan as p');
 		$this->db->join('users', 'p.id_usr = users.id');
 		$this->db->where('email', $email);
+		$this->db->order_by('tanggal_pemesanan', 'asc');
 		$query = $this->db->get();
 		return $query->result();
 	}

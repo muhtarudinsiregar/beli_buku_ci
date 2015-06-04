@@ -7,7 +7,7 @@
                 <div class="caption">
                     <h5 class="judul text-center"><a href="<?php echo  site_url('home/detail/'.$value->id_bk); ?>"><?php    echo $value->judul ?></a></h5>
                     <h6 class="text-center">Oleh : <?php  echo $value->nama ?></h6>
-                    <h6 class="harga text-center">Rp. <?php echo number_format($value->harga,0,',','.') ?></h6>
+                    <h4 class="harga text-center">Rp. <?php echo number_format($value->harga,0,',','.') ?></h4>
                 </div>
             </div>
         </div>

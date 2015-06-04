@@ -23,65 +23,74 @@
 </head><!--/head-->
 
 <body>
-    <nav class="navbar navbar-custom navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <span><a class="navbar-brand span-right" href="<?php echo site_url(); ?>">BeliBuku</a></span>
-            </div>
-            <div class="navbar-collapse collapse" id="searchbar">
-                <ul class="nav navbar-nav navbar-left">
-                    <li id="userPage" class="custom-cari">
-                       <li><a href="">Pencarian</a></li>
-                   </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="<?php echo site_url('keranjang'); ?>"><i class="fa fa-shopping-cart"></i> Keranjang</a></li>
-                    <?php if ($this->session->userdata('isLogin')==true): ?>
-                        <li><a href="<?php echo site_url('anggota/dashboard'); ?>">Dashboard</a></li>
-                        <li><a href="<?php echo site_url('login/logout') ?>" class ='span-left'>Logout</a></li>
-                    <?php else: ?>
-                        <li><a href="<?php echo site_url('daftar'); ?>">Daftar</a></li>
-                        <li><a href="<?php echo site_url('login') ?>" class ='span-left'>Login</a></li>
-                    <?php endif ?>
-        
-                </ul>
-                <!-- <form class="navbar-form"> -->
-                <?php echo form_open('home/cari',array('class'=>'navbar-form','method'=>'GET'))?>
-                <div class="form-group" style="display:inline;">
-                    <div class="input-group" style="display:table;">
-                        <input class="form-control" required id="keyword" name="search" placeholder="Judul, Pengarang" autocomplete="off" autofocus="autofocus" type="text">
-                        <span class="input-group-btn" style="width:1%;">
-                            <button type="submit" class="btn btn-success" type="button">  <span class="glyphicon glyphicon-search"></span></button>
-                        </span>
-                    </div>
-                </div>
-                <!-- </form> -->
-                <?php echo form_close(); ?>
-            </div><!--/.nav-collapse -->
-        </div>
-    </nav>
+    
+<nav class="navbar navbar-custom navbar-inverse navbar-fixed-top" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <span class=""><a class="navbar-brand brand-custom span-right" href="<?php echo site_url('/') ?>"><span class="fa fa-book"></span> BeliBuku</a></span>
+  </div>
 
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+      <!-- <li class="active"><a href="#">Link</a></li> -->
+      <li><a href="#">Pencarian</a></li>
+    </ul>
+    <div class="col-sm-3 col-md-6">
+       <?php echo form_open('home/cari',array('class'=>'navbar-form','method'=>'GET'))?>
+        <div class="input-group col-md-12">
+            <input type="text" class="form-control" placeholder="Judul, Pengarang" name="search">
+            <div class="input-group-btn">
+                <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+        <?php echo form_close(); ?>
+    </div>
+    <ul class="nav navbar-nav navbar-left">
+        <li><a href="<?php echo site_url('keranjang'); ?>"><i class="fa fa-shopping-cart"></i> Keranjang</a></li>
+        <?php if ($this->session->userdata('isLogin')==true): ?>
+                <!-- <li><a href="<?php echo site_url('anggota/dashboard'); ?>">Dashboard</a></li> -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->session->userdata('nama'); ?> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="<?php echo site_url('anggota/dashboard'); ?>">Sejarah Transaksi</a></li>
+                      <li><a href="#">Profil</a></li>
+                      <li class="divider"></li>
+                      <li><a href="<?php echo site_url('login/logout'); ?>">Keluar</a></li>
+                    </ul>
+                </li>
+            <?php else: ?>
+                <li><a href="<?php echo site_url('daftar'); ?>">Daftar</a></li>
+                <li><a href="<?php echo site_url('login') ?>">Login</a></li>
+            <?php endif ?>
+      
+    </ul>
+  </div><!-- /.navbar-collapse -->
+</nav>
+<ol class="breadcrumb item">
+    <li class=""><a href="<?php echo site_url('/'); ?>">Home</a></li>
+    <li class="active"><?php echo $breadcrumb; ?></li>
+</ol>
 <div class="container">
     <div class="row">
-        <div class="col-lg-12">
-            <ol class="breadcrumb item">
-                <li class=""><a href="<?php echo site_url('/'); ?>">Home</a></li>
+        <ol class="breadcrumb item">
+                <li class=""><a href="<?php echo site_url('/'); ?>"><i class="glyphicon glyphicon-home"></i> Home</a></li>
                 <li class="active"><?php echo $breadcrumb; ?></li>
-            </ol>
-        </div>
+        </ol>
     </div>
-    <div class="row">
+        
         <?php if (!empty($sidebar)) {
             $this->load->view($sidebar);
         } ?>
 
         <?php $this->load->view($main); ?>
-    </div>
+  
 </div>
 
 

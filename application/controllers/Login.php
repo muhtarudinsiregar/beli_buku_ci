@@ -37,6 +37,7 @@ class Login extends CI_Controller {
 			foreach ($cek as $cek)
 			{
 				$level = $cek['level'];
+				$nama  = $cek['nama'];
 			}
 			
 			
@@ -44,6 +45,7 @@ class Login extends CI_Controller {
 				'isLogin'=>true,
 				'username'=>$username,
 				'lvl'=>$level,
+				'nama'=>strstr($nama, ' ',true)
 				));
 			if ($level=='admin') {
 				redirect('buku','refresh');

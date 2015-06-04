@@ -17,11 +17,11 @@ class Login_model extends CI_Model {
 
 	public function get_user($username)
 	{
-		$query = $this->db->get_where('users', array('username'=>$username));
-		return $query->result_array();
-		if ($query) {
-			return $query[0];
-		}
+		// $query = $this->db->get_where('users', array('username'=>$username));
+		// return $query->result_array();
+		// if ($query) {
+		// 	return $query[0];
+		// }
 	}
 
 

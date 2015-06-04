@@ -79,7 +79,7 @@ html {
 
 body {
   min-height: 3000px;
-  padding-top: 70px;
+  padding-top: 15px;
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -91,4 +91,10 @@ body {
 
 .thumbnail img {
     width: 100%;
+}
+.breadcrumb-custom{
+  padding-top: 100px;
+}
+.brand-custom {
+  margin-left: 89px !important;
 }

@@ -87,6 +87,7 @@ class Keranjang extends CI_Controller {
 	{
 		if ($this->input->post('jml_bk'))
 		{
+			$detail_id = $this->input->post('id_bk');
 			if ($this->session->userdata('items')) {
 
 				$old_data =  $this->session->userdata('items');
@@ -132,8 +133,8 @@ class Keranjang extends CI_Controller {
 				$this->session->set_userdata($data);
 				// echo "suskses";
 			}
-			$this->session->set_flashdata('notif', 'Berhasi');
-			return Redirect('/');
+			$this->session->set_flashdata('notif', 'Berhasil ');
+			return Redirect('home/detail/'.$detail_id);
 		}
 
 		// $data = $this->session->userdata('items');
@@ -147,7 +148,7 @@ class Keranjang extends CI_Controller {
 		$items = $this->session->userdata('items');
 		$items[$index]['item_quantity'] = (int)$jumlah_buku;
 		$this->session->set_userdata('items', $items);
-		// Session::flash('notif','Jumlah Produk telah diubah menjadi '.$jumlah_buku);
+		$this->session->set_flashdata('notif', 'Jumlah Produk telah diubah menjadi '.$jumlah_buku);
 		return redirect('keranjang');
 	}
 
@@ -163,6 +164,7 @@ class Keranjang extends CI_Controller {
 		$data = array(
 			'notif'=>'Buku Berhasil Dihapus'
 			);
+		$this->session->set_flashdata('notif', 'Buku berhasil dihapus');
 		return Redirect('keranjang',$data);
 	}
 
@@ -219,6 +221,7 @@ class Keranjang extends CI_Controller {
 			'jumlah_buku'=>'jumlah_buku'
 			);
 		$this->session->unset_userdata($data);
+		redirect('/');
 		// $this->session->unset_userdata('redirect');
 		// $this->session->unset_userdata('total_harga');
 		// $this->session->unset_userdata('total_harga');

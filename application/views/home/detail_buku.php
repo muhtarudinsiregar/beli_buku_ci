@@ -1,3 +1,11 @@
+<?php if ($this->session->flashdata('notif')): ?>
+	<div class="row">
+	<div class="alert alert-success">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		<strong><?php echo $this->session->flashdata('notif'); ?></strong> menambahkan buku ke keranjang belanja anda.
+	</div>
+</div>
+<?php endif ?>
 <div class="row">	
 	<div class="col-lg-3">
 		<div class="thumbnail">

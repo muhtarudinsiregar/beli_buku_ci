@@ -1,6 +1,5 @@
 <div class="row">
-    <div class="col-lg-12">
-        <table id="cart" class="table table-hover table-condensed">
+    <table id="cart" class="table table-hover table-condensed">
             <thead>
                 <tr>
                     <th style="width:50%">Buku</th>
@@ -10,7 +9,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php if ($this->session->userdata('notif')): ?>
+                <?php if ($this->session->flashdata('notif')): ?>
                     <div class="alert alert-info">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <strong><?php echo $this->session->flashdata('notif'); ?></strong>
@@ -83,6 +82,5 @@
                     
                 </tr>
             </tfoot>
-        </table>
-    </div>
+    </table>
 </div>
