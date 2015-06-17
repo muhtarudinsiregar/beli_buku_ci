@@ -12,31 +12,40 @@ class Laporan extends CI_Controller {
 
 	public function index()
 	{
+		$data = $this->Laporan_model->export();
+		$data_penjualan=[];
+		$data_tanggal = [];
+
+		foreach ($data as $value) {
+			array_push($data_penjualan, $value->total);
+			array_push($data_tanggal, $value->tanggal);
+		}
 		$data = [
 			'main'=>'laporan/laporan',
-			'breadcrumb'=>'Laporan'
+			'breadcrumb'=>'Laporan',
+			'sidebar'=>'layout/home/sidebar_admin',
+			'data_penjualan'=>$data_penjualan,
+			'data_tanggal'=>$data_tanggal
 		];
-
 		$this->load->view('layout/home/index', $data);
 
 	}
 
 	public function export()
 	{
-
-		// $this->load->view('laporan/generate', $data);
-		$this->load->helper(array('dompdf','file'));
+		// load library
+		$this->load->library('dompdf_gen');
 		$data = [
 			'data_penjualan' => $this->Laporan_model->export(),
 			'total' => $this->Laporan_model->total()
 		];
-		$html = $this->load->view('laporan/generate',$data,true);
-		pdf_create($html,'laporan.pdf');
-		// $data_pdf = pdf_create($html,'',false);
-		// write_file('laporan.pdf',$data_pdf);
-		// var_dump($data['total']);
-
-
+		$this->load->view('laporan/generate',$data);
+		// Get output html
+		$html = $this->output->get_output();
+		// Convert to PDF
+		$this->dompdf->load_html($html);
+		$this->dompdf->render();
+		$this->dompdf->stream("laporan penjualan.pdf");
 	}
 
 }

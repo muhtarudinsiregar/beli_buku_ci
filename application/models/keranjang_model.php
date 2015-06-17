@@ -26,6 +26,10 @@ class Keranjang_model extends CI_Model {
 	{
 		$this->db->insert('pemesanan', $data_pemesanan);
 	}
+	public function get_data_user($email)
+	{
+		return $this->db->select('alamat,email,no_hp,nama')->where('email',$email)->get('users')->row();
+	}
 	
 
 }

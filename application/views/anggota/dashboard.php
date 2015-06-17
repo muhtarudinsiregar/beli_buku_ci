@@ -1,4 +1,10 @@
 <div class="col-lg-9">
+	<?php if ($this->session->flashdata('notif')): ?>
+		<div class="alert alert-success">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		<strong><?php echo $this->session->flashdata('notif'); ?></strong>
+	</div>
+	<?php endif ?>
 	<h4 class="text-center">Sejarah Transaksi</h4>
 	<table class="table table-bordered table-hover">
 		<thead align="center">

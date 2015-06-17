@@ -31,7 +31,6 @@ class Login extends CI_Controller {
 		$username = $this->input->post('email');
 		$password = $this->input->post('password');
 		$cek = $this->login_model->cek_user($username,sha1($password));
-		var_dump($username);
 		if (count($cek) == 1)
 		{
 			foreach ($cek as $cek)
@@ -40,12 +39,11 @@ class Login extends CI_Controller {
 				$nama  = $cek['nama'];
 			}
 			
-			
 			$this->session->set_userdata(array(
 				'isLogin'=>true,
 				'username'=>$username,
 				'lvl'=>$level,
-				'nama'=>strstr($nama, ' ',true)
+				'nama'=>$nama
 				));
 			if ($level=='admin') {
 				redirect('buku','refresh');

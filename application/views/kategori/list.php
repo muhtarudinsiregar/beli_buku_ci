@@ -1,4 +1,3 @@
-
 <div class="col-lg-9">
 	<a href="<?php echo site_url('kategori/tambah'); ?>" class="btn  btn-primary">Tambah Kategori</a>
 	<br>

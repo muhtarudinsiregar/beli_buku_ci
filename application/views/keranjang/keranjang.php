@@ -18,6 +18,7 @@
 
                 <?php if ($this->session->userdata('items')): ?>
                 <?php foreach ($data_book as $key => $value): ?>
+                    <?php echo var_dump($this->session->all_userdata()); ?>
                     <tr>
                         <td data-th="Product">
                             <div class="row">
@@ -50,6 +51,11 @@
                     </tr>
                 <?php endforeach ?>
             <?php else: ?>
+                <?php 
+                var_dump($this->session->all_userdata());
+                   $this->session->unset_userdata('jumlah_buku');
+                   $this->session->unset_userdata('total_harga');
+                ?>
                  <div class="alert alert-info">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <strong>Keranjang masih Kosong</strong>
@@ -75,8 +81,10 @@
                 <tr>
                     <td><a href="<?php echo site_url('home'); ?>" class="btn btn-warning"><i class="fa fa-angle-left"></i> Lanjut Berbelanja</a></td>
                     <td colspan="2" class="hidden-xs"></td>
-
-                    <td><a href="<?php echo site_url('keranjang/pesan'); ?>" class="btn btn-info btn-block">Pembayaran <i class="fa fa-angle-right"></i></a></td>
+                    <?php if ($this->session->userdata('items')): ?>
+                        <td><a href="<?php echo site_url('keranjang/pesan'); ?>" class="btn btn-info btn-block">Konfirmasi Pembelian <i class="fa fa-angle-right"></i></a></td>
+                    <?php endif ?>
+                    
                 </tr>
                 <tr>
                     

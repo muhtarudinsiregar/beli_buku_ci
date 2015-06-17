@@ -13,64 +13,44 @@ class Keranjang extends CI_Controller {
 
 	public function index()
 	{
-		// var_dump($this->session->all_userdata());
-		if ($this->session->userdata('items')) {
+		if ($this->session->userdata('items'))
+		{
 			$data = $this->session->userdata('items');
-			// var_dump($data);
-			if (empty($data))
+			foreach ($data as $value)
 			{
-				$data = array(
-					'notif'=>"Keranjang Kosong",
-					'main'=>'keranjang/keranjang',
-					'breadcrumb'=>'Keranjang'
-					);			
+				$id[]=$value['item_id'];
+				$jumlah[] = $value['item_quantity'];
 			}
-			else
-			{
-				foreach ($data as $value)
-				{
-					$id[]=$value['item_id'];
-					$jumlah[] = $value['item_quantity'];
-				}
-				$id_buku = implode(',',$id);
+			$id_buku = implode(',',$id);
 				// var_dump($id_buku);
 				// memasukkan id buku di session ke dalam database untuk mencari buku in(1,2,3,..) 
-				$data_book =$this->Keranjang_model->get_book_name($id_buku);
+			$data_book =$this->Keranjang_model->get_book_name($id_buku);
 				// var_dump($data_book);
 				// memasukkan data jml buku dari session ke array yg ditampilkan
-				
-				foreach ($data as $key=> $value) {
-					$data_book[$key]->jumlah_buku = $data[$key]['item_quantity'];
-					$data_book[$key]->total = $data[$key]['item_quantity'] * $data_book[$key]->harga;
-				}
-				
-				$total = 0;
-				$jml_buku = 0;
-				foreach ($data_book as $key => $value) {
-					$total = $total + $value->total;
-					$jml_buku = $jml_buku + $value->jumlah_buku;
-				}
-				$data_buku = array(
-					'total_harga' =>$total,
-					'jumlah_buku' =>$jml_buku
-				);
-				// if ($total==0) {
-				// 	$total = 0;
-				// }
-				
-				
-				$this->session->set_userdata( $data_buku );
-				// var_dump($this->session->all_userdata());
-				$data = [
-				'main'=>'keranjang/keranjang',
-				'breadcrumb'=>'Keranjang',
-				'data_book'=>$data_book,
-				'total'=>number_format($total,0,',','.')
-				];
-
+			foreach ($data as $key=> $value) {
+				$data_book[$key]->jumlah_buku = $data[$key]['item_quantity'];
+				$data_book[$key]->total = $data[$key]['item_quantity'] * $data_book[$key]->harga;
 			}
+			$total = 0;
+			$jml_buku = 0;
+			foreach ($data_book as $key => $value) {
+				$total = $total + $value->total;
+				$jml_buku = $jml_buku + $value->jumlah_buku;
+			}
+			$data_buku = array(
+				'total_harga' =>$total,
+				'jumlah_buku' =>$jml_buku
+				);
 
-		}else{
+			$this->session->set_userdata( $data_buku );
+			$data = [
+			'main'=>'keranjang/keranjang',
+			'breadcrumb'=>'Keranjang',
+			'data_book'=>$data_book,
+			'total'=>number_format($total,0,',','.')
+			];
+		}else
+		{
 
 			$data = [
 			'main'=>'keranjang/keranjang',
@@ -83,13 +63,10 @@ class Keranjang extends CI_Controller {
 	}
 
 
-	public function simpan()
-	{
-		if ($this->input->post('jml_bk'))
-		{
+	public function simpan(){
+		if ($this->input->post('jml_bk')){
 			$detail_id = $this->input->post('id_bk');
 			if ($this->session->userdata('items')) {
-
 				$old_data =  $this->session->userdata('items');
 				$data = [
 				'item_id'=>$this->input->post('id_bk'),
@@ -99,29 +76,25 @@ class Keranjang extends CI_Controller {
 				$this->session->set_userdata('items', $old_data);
 				$array = $this->session->userdata('items');
 				$total = array(); //move outside foreach loop because we don't want to reset it
-				// var_dump($array);
-				foreach ($array as $key => $value) {
+				foreach ($array as $key => $value)
+				{
 					$id = $value['item_id'];
 					$quantity = $value["item_quantity"];
 					if (!isset($total[$id])) {
 						$total[$id] = 0;
 					}
 					$data = $total[$id]	+=$quantity;
-					// echo $data;
+					var_dump($total);
 				}
-				// //now convert our associative array from  array(actual_item_id => actual_item_quantity,....)
-				//into array(array('item_id' => actual_item_id, 'item_quantity' => actual_item_quantity), ....)
 				$items = array();
-
-				foreach ($total as $item_id => $item_quantity) {
+				foreach ($total as $item_id => $item_quantity)
+				{
 					$items[]= array(
 						'item_id'=>$item_id,
 						'item_quantity'=>$item_quantity,
 						);
-					// var_dump($items);
 				}
 				$this->session->set_userdata('items', $items);
-				// var_dump($this->session->userdata('items'));
 			}else{
 				$data = array(
 					'items' =>array(
@@ -131,14 +104,10 @@ class Keranjang extends CI_Controller {
 							)));
 
 				$this->session->set_userdata($data);
-				// echo "suskses";
 			}
 			$this->session->set_flashdata('notif', 'Berhasil ');
 			return Redirect('home/detail/'.$detail_id);
 		}
-
-		// $data = $this->session->userdata('items');
-		// var_dump($this->session->all_userdata());
 	}
 
 	public function update($index)
@@ -154,16 +123,10 @@ class Keranjang extends CI_Controller {
 
 	public function hapus($index)
 	{
-		var_dump($this->session->all_userdata());
 		$items = $this->session->userdata('items');
 		unset($items[$index]);
 
 		$this->session->set_userdata('items',$items);
-
-		// var_dump($this->session->userdata('items'));	
-		$data = array(
-			'notif'=>'Buku Berhasil Dihapus'
-			);
 		$this->session->set_flashdata('notif', 'Buku berhasil dihapus');
 		return Redirect('keranjang',$data);
 	}
@@ -175,10 +138,13 @@ class Keranjang extends CI_Controller {
 			$this->session->set_userdata('redirect', 'keranjang/pesan');
 			Redirect('login');
 		}else{
-
+			$this->session->unset_userdata('redirect');
+			$email = $this->session->userdata('username');
+			$this->Keranjang_model->get_data_user($email);
 			$data = [
 			'main'=>'keranjang/keranjang_order',
-			'breadcrumb'=>'Keranjang'
+			'breadcrumb'=>'Keranjang',
+			'data_anggota'=>$this->Keranjang_model->get_data_user($email)
 			];
 
 			$this->load->view('layout/home/index', $data);
@@ -201,8 +167,7 @@ class Keranjang extends CI_Controller {
 		}
 		$email = $this->session->userdata('username');
 		$user = $this->Keranjang_model->get_id_user($email);//ambil id user
-		// var_dump($item);
-		// date_format(Y-MM-DD);
+
 		date_default_timezone_set('Asia/Jakarta');
 		$pemesanan = array(
 			'id_pmsn'=>$unique,
@@ -212,19 +177,15 @@ class Keranjang extends CI_Controller {
 			'tanggal_pemesanan'=>date('Y-m-d  h:i:s A')
 			);
 		$this->Keranjang_model->pemesanan($pemesanan);
-		var_dump($pemesanan);
-		echo "sukses";
+
 		$data = array(
 			'items'=>'items',
-			'redirect'=>'redirect',
 			'total_harga'=>'total_harga',
 			'jumlah_buku'=>'jumlah_buku'
 			);
 		$this->session->unset_userdata($data);
-		redirect('/');
-		// $this->session->unset_userdata('redirect');
-		// $this->session->unset_userdata('total_harga');
-		// $this->session->unset_userdata('total_harga');
+		$this->session->set_flashdata('notif','Terima Kasih sudah menggunakan layanan kami, pesanan anda akan kami proses.');
+		redirect('anggota/dashboard');
 	}
 }
 
