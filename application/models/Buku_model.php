@@ -17,7 +17,7 @@
 		
 		public function tambah($data)
 		{
-			$this->db->insert('buku',$data) or mysql_error();
+			$this->db->insert('buku',$data);
 		}
 
 		public function edit($id)

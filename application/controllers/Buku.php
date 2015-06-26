@@ -9,18 +9,11 @@
 		{
 			parent::__construct();
 			$this->load->model('Buku_model');
-			// $this->load->model('Kategori_model');
 		}
 
 
 		public function index()
 		{ 	
-			// $session = $this->session->userdata('session_id');
-			// if (!$session =="0") {
-			// 	redirect('buku/tambah');
-			// }
-
-			// var_dump($session);
 			$data = [
 			'breadcrumb'=>'List Buku',
 			'buku'=>$this->Buku_model->tampil_buku(),
@@ -30,19 +23,10 @@
 
 			];
 			$this->load->view('layout/home/index', $data);
-			// $this->load->view('template/admin/main.php');
 		}
 
 		public function tambah()
 		{
-			// $this->form_validation->set_error_delimiters('<div class="alert alert-danger">','</div>');
-			// $data['content'] = "artikel/tambah_artikel";
-			// $data['judul'] = "Tambah Artikel";
-
-
-			// $this->form_validation->set_rules('judul', 'Judul', 'required');
-			// $this->form_validation->set_rules('isi_artikel', 'Isi Artikel', 'required');
-
 			$data = array(
 				'main' =>'buku/tambah',
 				'breadcrumb'=>"Tambah Buku",
@@ -66,8 +50,6 @@
 				)); 
 			
 			$this->load->library('upload',$config);
-
-			// var_dump($config);
 			if (!$this->upload->do_upload())
 			{
 				$error = array(
@@ -89,7 +71,6 @@
 					'deskripsi'=>$this->input->post('deskripsi'),
 					'gambar'=>$upload_data['raw_name'].$upload_data['file_ext']
 					);
-				// var_dump($data['gambar']);
 				$this->Buku_model->tambah($data);
 				redirect('buku/tambah');
 			}
@@ -147,7 +128,6 @@
 		// 	}// penutup do upload 
 		// } 
 
-
 		public function edit($id)
 		{
 			$data = [
@@ -159,8 +139,7 @@
 			'kategori'=>$this->Buku_model->tampil_kategori(),
 			'penulis'=>$this->Buku_model->tampil_penulis()
 			];
-
-			// $array_baru = array($data['edit']);
+			// var_dump($data['data']);
 			$this->load->view('layout/home/index',$data);
 		}
 		public function update($id)
@@ -172,7 +151,6 @@
 				'max_width' => '3000',
 				'max_height' => '3000'
 				)); 
-			
 			$this->load->library('upload',$config);
 			$gambar = $this->Buku_model->edit($id);
 			if (!$this->upload->do_upload()) {
@@ -208,33 +186,6 @@
 					return redirect('buku/edit/'.$gambar->id_bk);
 				}
 			}
-
-			// // var_dump($config);
-			// if (!$this->upload->do_upload())
-			// {
-			// 	$error = array(
-			// 		'error' => $this->upload->display_errors(),
-			// 		'main'=>'buku/tambah',
-			// 		'breadcrumb'=>'Tambah Buku'
-			// 		);
-			// 	echo $error['error'];
-			// }
-			// else
-			// {
-			// 	$upload_data =$this->upload->data();
-			// 	$data = array(
-			// 		'judul'=>$this->input->post('judul'),
-			// 		'id_ktgr'=>$this->input->post('kategori'),
-			// 		'id_pen'=>$this->input->post('penulis'),
-			// 		'harga'=>$this->input->post('harga'),
-			// 		'tahun'=>$this->input->post('tahun'),
-			// 		'deskripsi'=>$this->input->post('deskripsi'),
-			// 		'gambar'=>$upload_data['raw_name'].$upload_data['file_ext']
-			// 		);
-			// 	// var_dump($data['gambar']);
-			// 	$this->Buku_model->tambah($data);
-			// 	redirect('buku/tambah');
-			// }
 		}
 
 		public function hapus($id)

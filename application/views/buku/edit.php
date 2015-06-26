@@ -1,23 +1,23 @@
 <div class="col-lg-9">
 	<div class="panel panel-default">
-		<div class="panel-heading">Tambah Buku</div>
+		<div class="panel-heading">Edit Buku</div>
 		<div class="panel-body">
-				<?php echo form_open_multipart('buku/update/'.$data->id_bk,array('class="form-horizontal"')) ?>
-				<!-- <form method="post" class="form-horizontal" enctype="multipart/form-data"> -->
-				<div class="row">
-					<div class="col-lg-5">	
-						<div class="form-group">
-							<label for="nama">Judul Buku</label>
-							<input type="text" class="form-control" name="judul" placeholder="Judul Buku" value="<?php echo $data->judul; ?>">
-						</div>
-					</div>
-					<div class="col-lg-5 col-md-offset-1">	
-						<div class="form-group">
-							<label for="nama">Harga Buku</label>
-							<input type="text" class="form-control" name="harga" placeholder="Harga Buku" value="<?php echo $data->harga; ?>">
-						</div>
+			<?php echo form_open_multipart('buku/update/'.$data->id_bk,array('class="form-horizontal"')) ?>
+			<!-- <form method="post" class="form-horizontal" enctype="multipart/form-data"> -->
+			<div class="row">
+				<div class="col-lg-5">	
+					<div class="form-group">
+						<label for="nama">Judul Buku</label>
+						<input type="text" class="form-control" name="judul"value="<?php echo $data->judul; ?>">
 					</div>
 				</div>
+				<div class="col-lg-5 col-md-offset-1">	
+					<div class="form-group">
+						<label for="nama">Harga Buku</label>
+						<input type="text" class="form-control" name="harga" value="<?php echo $data->harga; ?>">
+					</div>
+				</div>
+			</div>
 				<!-- <?php var_dump($data) ?> -->
 				<div class="row">
 					<div class="col-lg-5">
