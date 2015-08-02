@@ -45,7 +45,7 @@
     <div class="col-sm-3 col-md-6">
        <?php echo form_open('home/cari',array('class'=>'navbar-form','method'=>'GET'))?>
         <div class="input-group col-md-12">
-            <input type="text" class="form-control" placeholder="Judul, Pengarang" name="search">
+            <input type="text" class="form-control" placeholder="Judul, Pengarang" name="search" required>
             <div class="input-group-btn">
                 <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-search"></i></button>
             </div>

@@ -6,10 +6,10 @@
             </div>     
             <div class="panel-body" style="padding-top:30px">
                 <!-- <?php if (validation_errors()): ?> -->
-                    <div class="alert alert-danger">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <?php echo validation_errors(); ?>
-                    </div>
+    <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <?php echo validation_errors(); ?>
+    </div>
                 <!-- <?php endif ?> -->
                <?php if ($this->session->flashdata('sukses')): ?>
                     <div class="alert alert-success">

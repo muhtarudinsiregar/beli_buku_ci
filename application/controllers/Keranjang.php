@@ -9,12 +9,8 @@ class Keranjang extends CI_Controller {
 		$this->load->model('Keranjang_model');
 	}
 
-
-
-	public function index()
-	{
-		if ($this->session->userdata('items'))
-		{
+	public function index(){
+		if ($this->session->userdata('items')){
 			$data = $this->session->userdata('items');
 			foreach ($data as $value)
 			{
@@ -22,10 +18,8 @@ class Keranjang extends CI_Controller {
 				$jumlah[] = $value['item_quantity'];
 			}
 			$id_buku = implode(',',$id);
-				// var_dump($id_buku);
 				// memasukkan id buku di session ke dalam database untuk mencari buku in(1,2,3,..) 
 			$data_book =$this->Keranjang_model->get_book_name($id_buku);
-				// var_dump($data_book);
 				// memasukkan data jml buku dari session ke array yg ditampilkan
 			foreach ($data as $key=> $value) {
 				$data_book[$key]->jumlah_buku = $data[$key]['item_quantity'];
@@ -49,16 +43,13 @@ class Keranjang extends CI_Controller {
 			'data_book'=>$data_book,
 			'total'=>number_format($total,0,',','.')
 			];
-		}else
-		{
-
+		}else{
 			$data = [
 			'main'=>'keranjang/keranjang',
 			'breadcrumb'=>'Keranjang',
 			'total'=>0
 			];
 		}
-		// var_dump($data);
 		$this->load->view('layout/home/index',$data);
 	}
 
@@ -84,7 +75,6 @@ class Keranjang extends CI_Controller {
 						$total[$id] = 0;
 					}
 					$data = $total[$id]	+=$quantity;
-					var_dump($total);
 				}
 				$items = array();
 				foreach ($total as $item_id => $item_quantity)
@@ -102,7 +92,6 @@ class Keranjang extends CI_Controller {
 							'item_id' => $this->input->post('id_bk'),
 							'item_quantity' => $this->input->post('jml_bk')
 							)));
-
 				$this->session->set_userdata($data);
 			}
 			$this->session->set_flashdata('notif', 'Berhasil ');

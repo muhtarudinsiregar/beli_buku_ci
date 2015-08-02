@@ -5,12 +5,12 @@
 			<?php echo form_open_multipart('buku/update/'.$data->id_bk,array('class="form-horizontal"')) ?>
 			<!-- <form method="post" class="form-horizontal" enctype="multipart/form-data"> -->
 			<div class="row">
-				<div class="col-lg-5">	
-					<div class="form-group">
-						<label for="nama">Judul Buku</label>
-						<input type="text" class="form-control" name="judul"value="<?php echo $data->judul; ?>">
-					</div>
-				</div>
+<div class="col-lg-5">	
+	<div class="form-group">
+		<label for="nama">Judul Buku</label>
+		<input type="text" class="form-control" name="judul"value="<?php echo $data->judul; ?>">
+	</div>
+</div>
 				<div class="col-lg-5 col-md-offset-1">	
 					<div class="form-group">
 						<label for="nama">Harga Buku</label>

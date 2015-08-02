@@ -43,7 +43,9 @@ public function cari()
         'sidebar'=>'layout/home/sidebar_home',
         'breadcrumb'=>'Pencarian'
         );
-        // var_dump($data['query']);
+    // if (empty($data['query'])) {
+    //    echo "<div class='alert alert-warning' role='alert'>Data Tidak Ada </div>";
+    // }
     $this->load->view('layout/home/index', $data);
 }
 
